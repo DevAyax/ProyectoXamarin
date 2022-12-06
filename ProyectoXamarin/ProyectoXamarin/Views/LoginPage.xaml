@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:fonts="clr-namespace:ProyectoXamarin.Fonts;assembly=ProyectoXamarin" 
+			 xmlns:behaviors ="clr-namespace:ProyectoXamarin.Behaviors"
+			 mc:Ignorable="d"
+             x:Class="ProyectoXamarin.Views.LoginPage"
+             Shell.NavBarIsVisible="False">
+	<ContentPage.Content>
+		<StackLayout
+            Padding="0"
+            BackgroundColor="LightSeaGreen"
+            Opacity="0.9">
+			<Grid>
+				<StackLayout Margin="0" Padding="0">
+					    <Frame
+                            Padding="0"
+                            BackgroundColor="Orange"
+                            HeightRequest="190"
+                            HorizontalOptions="FillAndExpand">
+						    <ImageButton
+                                Margin="0"
+                                Aspect="AspectFill"
+                                Source="" />
+					    </Frame>
+				</StackLayout>
+				<StackLayout Margin="15,140,15,0">
+					<Frame
+                        BackgroundColor="White"
+                        HasShadow="True"
+                        HeightRequest="400"
+                        HorizontalOptions="FillAndExpand">
+						<StackLayout>
+							<StackLayout HorizontalOptions="CenterAndExpand">
+								<Label
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    Text="SIGN IN"
+                                    TextColor="Black" />
+							</StackLayout>
+							<StackLayout Margin="0,20,0,0">
+								<Frame
+                                    Margin="0"
+                                    Padding="0"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="LightSeaGreen"
+                                    CornerRadius="50"
+                                    HorizontalOptions="FillAndExpand">
+									<StackLayout Orientation="Horizontal">
+										<Frame
+                                            Margin="7"
+                                            Padding="0"
+                                            BackgroundColor="LightSeaGreen"
+                                            CornerRadius="50"
+                                            HeightRequest="35"
+                                            HorizontalOptions="Start"
+                                            WidthRequest="35">
+											<Label
+                                                FontFamily="Icomoon"
+                                                FontSize="Large"
+                                                HorizontalOptions="Center"
+												Margin="0,0,0,4"
+                                                VerticalOptions="Center" 
+												Text="{x:Static fonts:IconFonts.IconUserPlus}"
+											/>
+										</Frame>
+										<Entry
+											x:Name="entryUser"
+                                            Margin="0,0,15,0"
+                                            HorizontalOptions="FillAndExpand"
+                                            Placeholder="Email"
+                                            PlaceholderColor="LightSeaGreen"
+                                            TextColor="Black" 
+											Text="{Binding NewUser.Email}">
+											<Entry.Behaviors>
+												<behaviors:EmailValidatorBehavior/>
+											</Entry.Behaviors>
+										</Entry>
+										
+									</StackLayout>
+								</Frame>
+								<Frame
+                                    Margin="0,20,0,0"
+                                    Padding="0"
+                                    BackgroundColor="Transparent"
+                                    BorderColor="LightSeaGreen"
+                                    CornerRadius="50"
+                                    HorizontalOptions="FillAndExpand">
+									<StackLayout Orientation="Horizontal">
+										<Frame
+                                            Margin="7"
+                                            Padding="0"
+                                            BackgroundColor="LightSeaGreen"
+                                            CornerRadius="50"
+                                            HeightRequest="35"
+                                            HorizontalOptions="Start"
+                                            WidthRequest="35">
+											<Label
+                                                Padding="8,0,0,0"
+                                                FontFamily="Icomoon"
+                                                FontSize="Large"
+                                                HorizontalOptions="Center"
+												Margin="0,0,0,4"
+                                                VerticalOptions="Center" 
+												Text="{x:Static fonts:IconFonts.IconLock}"
+											/>
+										</Frame>
+										<Entry
+											x:Name="entryPassword"
+                                            Margin="0,0,15,0"
+                                            HorizontalOptions="FillAndExpand"
+                                            IsPassword="True"
+                                            Placeholder="Password"
+                                            PlaceholderColor="LightSeaGreen"
+                                            TextColor="Black" 
+											Text="{Binding NewUser.Password}">
+											<Entry.Behaviors>
+												<behaviors:PasswordValidationBehavior/>
+											</Entry.Behaviors>
+										</Entry>
+									</StackLayout>
+								</Frame>
+							</StackLayout>
+							<StackLayout Orientation="Horizontal">
+								<CheckBox IsChecked="False" Color="LightSeaGreen"  />
+								<Label
+                                    HorizontalTextAlignment="Start"
+                                    Text="Remember me"
+                                    VerticalTextAlignment="Center" />
+								<Label
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="End"
+                                    Text="Forgot Password"
+                                    TextColor="LightSeaGreen"
+                                    VerticalOptions="Center" />
+							</StackLayout>
+							<Button
+								x:Name="btnSigin"
+                                BackgroundColor="LightSeaGreen"
+                                CornerRadius="20"
+                                FontAttributes="Bold"
+                                Text="SIGN IN"
+                                TextColor="White" 
+								Command="{Binding LoginCommand}"
+							/>
+							<Button
+								x:Name="btnPrueba"
+                                BackgroundColor="LightSeaGreen"
+                                CornerRadius="20"
+                                FontAttributes="Bold"
+                                Text="GET"
+                                TextColor="White" 
+								Command="{Binding GetUserCommand}"
+							/>
+							<StackLayout Orientation="Horizontal">
+								<Label
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Still not conected ?"
+                                    VerticalTextAlignment="Center" />
+								<Label
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Sign up"
+                                    TextColor="LightSeaGreen" />
+							</StackLayout>
+						</StackLayout>
+					</Frame>
+				</StackLayout>
+			</Grid>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

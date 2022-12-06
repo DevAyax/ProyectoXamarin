@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoXamarin.Views.HomePage"
+			 xmlns:viewModel="clr-namespace:ProyectoXamarin.ViewModels">
+	
+	<ContentPage.BindingContext>
+		<viewModel:HomeViewModel></viewModel:HomeViewModel>
+	</ContentPage.BindingContext>
+	
+	<ContentPage.Content>
+        <StackLayout>
+			<Frame
+				Margin="20,20,0,0"
+				Padding="0"
+				BackgroundColor="LightSeaGreen"
+				CornerRadius="50"
+				HeightRequest="35"
+				HorizontalOptions="Start"
+				WidthRequest="175">
+				<Frame.GestureRecognizers>
+					<!--<TapGestureRecognizer 
+								Command="{Binding AddKilometersCommand}" 
+								NumberOfTapsRequired="1"
+							/>-->
+				</Frame.GestureRecognizers>
+				<Label
+					FontSize="Large"	
+					HorizontalOptions="Center"
+					Margin="0,2,0,4"
+					VerticalOptions="Center" 
+					FontAttributes="Bold"
+					Text="{Binding InfoCar}"/>
+			</Frame>
+			<Image x:Name="imagenCarga"
+                Source="Smax.jpg"
+			    Margin="50,0,0,0"
+                HeightRequest="200"  
+                WidthRequest="200" 
+                IsVisible="true" />
+			<StackLayout Orientation="Horizontal" Margin="0,20,0,0">
+				<Grid RowDefinitions="50,20" ColumnDefinitions="200,auto, auto,*">
+					<Label
+						Grid.Row="0"
+						Grid.ColumnSpan="2"
+						FontSize="Large"
+						Margin="15,0,0,-4"
+						VerticalOptions="Center"
+						Text="{Binding Kilometers}"/>
+					<Label
+						Grid.Row="1"
+						Grid.ColumnSpan="2"
+						FontSize="Micro"
+						HorizontalOptions="Center"
+						Margin="-40,-20,0,4"
+						VerticalOptions="Center"
+						Text="{Binding InfoDate}"/>
+					<Frame
+						Grid.Row="0"
+						Grid.Column="1"
+						Margin="7"
+						Padding="0"
+						BackgroundColor="LightSeaGreen"
+						CornerRadius="50"
+						HeightRequest="35"
+						HorizontalOptions="Start"
+						WidthRequest="35">
+						<Frame.GestureRecognizers>
+							<TapGestureRecognizer 
+								Command="{Binding AddKilometersCommand}" 
+								NumberOfTapsRequired="1"
+							/>
+						</Frame.GestureRecognizers>
+						<Label
+							FontSize="Large"	
+							HorizontalOptions="Center"
+							Margin="0,2,0,4"
+							VerticalOptions="Center" 
+							Text="+"
+							FontAttributes="Bold"
+						/>
+					</Frame>
+					<Button
+						Grid.Row="0" 
+						Grid.Column="3"
+						x:Name="btnHostory"
+						Text="HISTORIAL"
+					/>
+				</Grid>
+			</StackLayout>
+		</StackLayout>
+    </ContentPage.Content>
+</ContentPage>
