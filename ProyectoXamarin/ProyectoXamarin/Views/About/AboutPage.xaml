@@ -1,11 +1,11 @@
 ﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProyectoXamarin.Views.AboutPage"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="ProyectoXamarin.Views.AboutPage"
              Shell.NavBarIsVisible="False"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#1C375C">
 	<ContentPage.Content>
-		<Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+		<Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"></RowDefinition>
 				<RowDefinition Height="*"></RowDefinition>

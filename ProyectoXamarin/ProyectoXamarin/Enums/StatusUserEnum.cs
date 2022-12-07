@@ -1,11 +1,11 @@
 ﻿namespace ProyectoXamarin.Enums
 {
-    public enum StatusEnum
-    {
-        NotRegistered = 0,
+	public enum StatusEnum
+	{
+		NotRegistered = 0,
 
-        Registered = 1,
+		Registered = 1,
 
-        Updated = 2
-    }
+		Updated = 2
+	}
 }

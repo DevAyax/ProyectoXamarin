@@ -15,9 +15,24 @@ namespace ProyectoXamarin.ViewModels
 {
 	public class CreateCarViewModel : BaseViewModel
 	{
-		
+		private ObservableCollection<Model> models;
+
+		private ObservableCollection<Brand> brands;
+
+		private int kilometers;
+
+		private string combustibleSelected;
+
+		private string doorsSelected;
+
+		private Car newCar;
+
+		private Brand brandSelected;
+
+		private Model modelSelected;
 
 		private readonly ICarService carService;
+
 		private readonly IKilometerService kilometerService;
 
 		public CreateCarViewModel()
@@ -53,17 +68,15 @@ namespace ProyectoXamarin.ViewModels
 			}
 		}
 
-		public async Task OnActivatedAsync()
+		public async Task OnAppearingAsync()
 		{
-			//await carService.InitAsync();
-			//await kilometerService.InitAsync();
 			await GetBrands();
 			await FillFields();
 		}
 
 		public async Task FillFields()
 		{
-			var car = await carService.GetCarByUserAsync(Constants.UserId);
+			var car = await carService.GetCarByUserAsync(SesionData.UserId);
 			if (car != null)
 			{
 				var brand = await carService.GetBrandAsync((int) car.BrandId);
@@ -86,7 +99,7 @@ namespace ProyectoXamarin.ViewModels
 			try
 			{
 				IsBusy = true;
-				Brands = await carService.GetBrandsAsync(Brands);
+				Brands = await carService.GetAllBrandsAsync(Brands);
 				IsBusy = false;
 			}
 			catch (Exception ex)
@@ -109,7 +122,7 @@ namespace ProyectoXamarin.ViewModels
 			try
 			{
 				IsBusy = true;
-				Models = await carService.GetModelsAsync(Models, BrandSelected.Id);
+				Models = await carService.GetAllModelsAsync(Models, BrandSelected.Id);
 				IsBusy = false;
 			}
 			catch (Exception ex)
@@ -131,28 +144,15 @@ namespace ProyectoXamarin.ViewModels
 			try
 			{
 				IsBusy = true;
-				
+
 				if (brandSelected != null & modelSelected != null)
 				{
 					await carService.UpdateAsync(NewCar);
+					await kilometerService.SaveAsync(new Kilometer { CarId = NewCar.Id, DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"), Km = NewCar.Km });
 				}
 				else
 				{
-					await UserDialogs.Instance.AlertAsync("Compruebe que ha seleccionado marca y modelo", "INFO" ,"OK");
-				}
-
-				if (NewCar.Id > 0)
-				{
-					var km = new Kilometer
-					{
-						DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"),
-						Km = (int)NewCar.Km,
-						CarId = NewCar.Id
-					};
-
-					Constants.kilometers = (int)NewCar.Km;
-
-					await kilometerService.SaveAsync(km);
+					await UserDialogs.Instance.AlertAsync("Compruebe que ha seleccionado marca y modelo", "INFO", "OK");
 				}
 			}
 			catch (Exception ex)
@@ -179,30 +179,20 @@ namespace ProyectoXamarin.ViewModels
 				if (brandSelected != null & modelSelected != null)
 				{
 					NewCar.BrandId = brandSelected.Id;
-					NewCar.UserId = Constants.UserId;
+					NewCar.UserId = SesionData.UserId;
 					NewCar.ModelId = modelSelected.Id;
-					NewCar.Km = kilometers;
+					NewCar.Km = Kilometers;
 					NewCar.Combustible = CombustibleSelected;
 					NewCar.Doors = DoorsSelected;
 
 					await carService.SaveAsync(NewCar);
+					await kilometerService.SaveAsync(new Kilometer { CarId = NewCar.Id, DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"), Km = NewCar.Km });
 				}
 				else
 				{
 					await UserDialogs.Instance.AlertAsync("Compruebe que ha seleccionado marca y modelo", "INFO", "OK");
 				}
 
-				if (NewCar.Id == 0)
-				{
-					var km = new Kilometer
-					{
-						DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"),
-						Km = (int) NewCar.Km
-					};
-
-					await kilometerService.SaveAsync(km);
-				}
-					
 				IsBusy = false;
 				await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 			}
@@ -220,8 +210,6 @@ namespace ProyectoXamarin.ViewModels
 		public Command CarRegisterCommand { get; set; }
 		public Command AddKilometersCommand { get; set; }
 
-		private ObservableCollection<Brand> brands;
-
 		public ObservableCollection<Brand> Brands
 		{
 			get => brands;
@@ -232,7 +220,6 @@ namespace ProyectoXamarin.ViewModels
 			}
 		}
 
-		private ObservableCollection<Model> models;
 		public ObservableCollection<Model> Models
 		{
 			get => models;
@@ -243,7 +230,6 @@ namespace ProyectoXamarin.ViewModels
 			}
 		}
 
-		private int kilometers;
 		public int Kilometers
 		{
 			get => kilometers;
@@ -254,7 +240,6 @@ namespace ProyectoXamarin.ViewModels
 			}
 		}
 
-		private string doorsSelected;
 		public string DoorsSelected
 		{
 			get => doorsSelected;
@@ -265,7 +250,6 @@ namespace ProyectoXamarin.ViewModels
 			}
 		}
 
-		private string combustibleSelected;
 		public string CombustibleSelected
 		{
 			get => combustibleSelected;
@@ -276,9 +260,6 @@ namespace ProyectoXamarin.ViewModels
 			}
 		}
 
-
-
-		private Car newCar;
 		public Car NewCar
 		{
 			get => newCar;
@@ -289,7 +270,6 @@ namespace ProyectoXamarin.ViewModels
 			}
 		}
 
-		private Brand brandSelected;
 		public Brand BrandSelected
 		{
 			get => brandSelected;
@@ -300,7 +280,6 @@ namespace ProyectoXamarin.ViewModels
 			}
 		}
 
-		private Model modelSelected;
 		public Model ModelSelected
 		{
 			get => modelSelected;

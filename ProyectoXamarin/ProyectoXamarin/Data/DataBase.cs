@@ -11,11 +11,13 @@ using SQLite;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(DataBase))]
+
 namespace ProyectoXamarin.Data
 {
-    public class DataBase : IDataBaseConnection 
+	public class DataBase : IDataBaseConnection
 	{
 		public SQLiteAsyncConnection db;
+
 		public static string DbPath { get; } =
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal)
 				, "MyDataBase.db");

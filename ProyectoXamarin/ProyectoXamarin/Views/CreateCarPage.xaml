@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:behaviors="clr-namespace:ProyectoXamarin.Behaviors"
+			 xmlns:viewModel="clr-namespace:ProyectoXamarin.ViewModels"
+			 x:Class="ProyectoXamarin.Views.CreateCarPage"
+			 x:DataType="viewModel:CreateCarViewModel">
+	<ContentPage.BindingContext>
+		<viewModel:CreateCarViewModel />
+	</ContentPage.BindingContext>
+	<ContentPage.Content>
+		<StackLayout>
+			<BoxView HeightRequest="20" WidthRequest="400" />
+			<Grid HorizontalOptions="Center" VerticalOptions="Center">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="275" />
+					<ColumnDefinition Width="50" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="25" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="25" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="25" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="25" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="25" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="40" />
+					<RowDefinition Height="50" />
+				</Grid.RowDefinitions>
+				<Label
+					Text="Marca"
+					Grid.Column="0"
+					Grid.Row="0"
+					Grid.ColumnSpan="2"
+					Margin="4,0,0,0" />
+				<Picker
+					Title="Selecciona marca"
+					x:Name="pMarcas"
+					Grid.Column="0"
+					Grid.Row="1"
+					Grid.ColumnSpan="2"
+					ItemsSource="{Binding Brands}"
+					ItemDisplayBinding="{Binding Name}"
+					SelectedItem="{Binding BrandSelected, Mode=TwoWay}" />
+				<Label
+					Text="Modelo"
+					Grid.Column="0"
+					Grid.Row="2"
+					Grid.ColumnSpan="2"
+					Margin="4,0,0,0" />
+				<Picker
+					Title="Selecciona Modelo"
+					x:Name="pModels"
+					Grid.Column="0"
+					Grid.Row="3"
+					Grid.ColumnSpan="2"
+					ItemsSource="{Binding Models}"
+					ItemDisplayBinding="{Binding Name}"
+					SelectedItem="{Binding ModelSelected, Mode=TwoWay}" />
+				<Label
+					Text="Kilometros"
+					Grid.Column="0"
+					Grid.Row="4"
+					Grid.ColumnSpan="2"
+					Margin="4,0,0,0" />
+				<Entry
+					Placeholder="Introduce Km"
+					Grid.Column="0"
+					Grid.Row="5"
+					Grid.ColumnSpan="2"
+					x:Name="entryKm"
+					Keyboard="Numeric"
+					BindingContext="{Binding Kilometers}">
+					<Entry.Behaviors>
+						<behaviors:NumericValidationBehavior />
+					</Entry.Behaviors>
+				</Entry>
+				<Label
+					Text="Puertas"
+					Grid.Column="0"
+					Grid.Row="6"
+					Grid.ColumnSpan="2"
+					Margin="4,0,0,0" />
+				<Picker
+					Title="Seleccione nº de puertas"
+					x:Name="pPuertas"
+					Grid.Column="0"
+					Grid.Row="7"
+					Grid.ColumnSpan="2"
+					SelectedItem="{Binding DoorsSelected, Mode=TwoWay}">
+					<Picker.Items>
+						<x:String>3</x:String>
+						<x:String>5</x:String>
+					</Picker.Items>
+				</Picker>
+				<Label
+					Text="Seleccion combustible"
+					Grid.Column="0"
+					Grid.Row="8"
+					Grid.ColumnSpan="2"
+					Margin="4,0,0,0" />
+				<Picker
+					Title="Combustible"
+					x:Name="pCombustible"
+					Grid.Column="0"
+					Grid.Row="9"
+					Grid.ColumnSpan="2"
+					SelectedItem="{Binding CombustibleSelected, Mode=TwoWay}">
+					<Picker.Items>
+						<x:String>Diesel</x:String>
+						<x:String>Gasolina</x:String>
+						<x:String>Hybrid</x:String>
+						<x:String>Eléctrico</x:String>
+						<x:String>Gas</x:String>
+					</Picker.Items>
+				</Picker>
+				<Button
+					Text="Añadir"
+					Grid.Column="0"
+					Grid.Row="11"
+					Grid.ColumnSpan="2"
+					Command="{Binding CarRegisterCommand}" />
+			</Grid>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

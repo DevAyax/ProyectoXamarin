@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using ProyectoXamarin.ViewModels;
+﻿using ProyectoXamarin.ViewModels;
 using Xamarin.Forms;
 
 namespace ProyectoXamarin.Views

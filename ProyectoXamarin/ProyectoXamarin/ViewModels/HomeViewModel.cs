@@ -9,44 +9,16 @@ namespace ProyectoXamarin.ViewModels
 {
 	public class HomeViewModel : BaseViewModel
 	{
-
-		public Command AddKilometersCommand { get; set; }
+		private string infoDate;
 
 		private string kilometers;
-		public string Kilometers
-		{
-			get => kilometers;
-			set
-			{
-				kilometers = value;
-				OnPropertyChanged();
-			}
-		}
 
 		private string infoCar;
-		public string InfoCar
-		{
-			get => infoCar;
-			set
-			{
-				infoCar = value;
-				OnPropertyChanged();
-			}
-		}
-
-		private string infoDate;
-		public string InfoDate
-		{
-			get => infoDate;
-			set
-			{
-				infoDate = value;
-				OnPropertyChanged();
-			}
-		}
 
 		private readonly ICarService carService;
+
 		private readonly IKilometerService kilometerService;
+
 		private readonly IUserService userService;
 
 		public HomeViewModel()
@@ -62,17 +34,22 @@ namespace ProyectoXamarin.ViewModels
 				await GetPromptAsync();
 			});
 		}
-		public async Task OnActivatedAsync()
+
+		public async Task OnAppearingAsync()
 		{
-			//await carService.InitAsync();
-			//await kilometerService.InitAsync();
-			//await userService.InitAsync();
 			await GetAllInfo();
 		}
 
 		public async Task GetAllInfo()
 		{
-			var user = await userService.GetUserAsync(Constants.UserId);
+			var user = await userService.GetUserAsync(SesionData.UserId);
+			var cars = await carService.GetAllCarsAsync(new System.Collections.ObjectModel.ObservableCollection<Models.Cars.Car>());
+			var count = cars.Count;
+			var c = count == 1 ? cars[0] : new Models.Cars.Car();
+			user.CarId = c.Id;
+			await userService.SaveAsync(user);
+			await kilometerService.SaveAsync(new Kilometer { CarId = c.Id, DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"), Km = c.Km });
+
 			if (user.CarId != null)
 			{
 				var _Car = await carService.GetCarByUserAsync(user.Id);
@@ -80,11 +57,10 @@ namespace ProyectoXamarin.ViewModels
 				var model = await carService.GetModelAsync((int) _Car.ModelId);
 				var _Kilometer = await kilometerService.GetKilometerAsync(_Car.Id);
 
-				Constants.CarId = _Car != null ? _Car.Id : 0;
-				Constants.kilometers = _Kilometer != null ? (int) _Kilometer.Km : 0;
-				Constants.kilometerEntity = _Kilometer != null ? _Kilometer : null;
+				SesionData.CarId = _Car != null ? _Car.Id : 0;
+				SesionData.kilometers = _Kilometer != null ? (int) _Kilometer.Km : 0;
 
-				Kilometers = $"{Constants.kilometers} Km";
+				Kilometers = $"{SesionData.kilometers} Km";
 				InfoCar = $"({brand.Name}) ({model.Name})";
 				InfoDate = $"Útima actualización: {_Kilometer.DateCreation}";
 			}
@@ -92,33 +68,64 @@ namespace ProyectoXamarin.ViewModels
 
 		public async Task GetPromptAsync()
 		{
-			var _Car = await carService.GetCarByUserAsync(Constants.UserId);
+			var _Car = await carService.GetCarByUserAsync(SesionData.UserId);
 
 			var promptConfig = new PromptConfig();
 			promptConfig.InputType = InputType.Number;
 			promptConfig.IsCancellable = true;
 			promptConfig.Message = "Actualiza kilometros";
-			promptConfig.Placeholder = $"{Constants.kilometers}";
+			promptConfig.Placeholder = $"{SesionData.kilometers}";
 			var result = await UserDialogs.Instance.PromptAsync(promptConfig);
 
 			if (result.Ok)
 			{
-				Constants.kilometers = int.Parse(result.Text);
-				
+				SesionData.kilometers = int.Parse(result.Text);
+
 				await kilometerService.SaveAsync(new Kilometer
 				{
-					Km = Constants.kilometers,
+					Km = SesionData.kilometers,
 					CarId = _Car.Id,
 					DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")
 				});
-				
-				Kilometers = $"{Constants.kilometers} Km";
-				
-				_Car.Km = Constants.kilometers;
-				
+
+				Kilometers = $"{SesionData.kilometers} Km";
+
+				_Car.Km = SesionData.kilometers;
+
 				await carService.UpdateAsync(_Car);
 			}
 		}
 
+		public Command AddKilometersCommand { get; set; }
+
+		public string Kilometers
+		{
+			get => kilometers;
+			set
+			{
+				kilometers = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public string InfoCar
+		{
+			get => infoCar;
+			set
+			{
+				infoCar = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public string InfoDate
+		{
+			get => infoDate;
+			set
+			{
+				infoDate = value;
+				OnPropertyChanged();
+			}
+		}
 	}
 }

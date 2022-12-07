@@ -14,18 +14,7 @@ namespace ProyectoXamarin.ViewModels
 
 		private User newUser;
 
-		public User NewUser
-		{
-			get => newUser;
-			set
-			{
-				newUser = value;
-				OnPropertyChanged();
-			}
-		}
-
 		private readonly IUserService userService;
-
 
 		public LoginViewModel()
 		{
@@ -35,14 +24,14 @@ namespace ProyectoXamarin.ViewModels
 			RegsiterCommand = new Command(async () => await SaveUser());
 		}
 
-		public async Task OnActivatedAsync()
+		public async Task OnAppearingAsync()
 		{
 			var users = await userService.GetAllUsersAsync();
 
 			if (users.Any())
 			{
 				NewUser = users.OrderByDescending(c => c.Id).FirstOrDefault();
-				Constants.UserId = NewUser.Id;
+				SesionData.UserId = NewUser.Id;
 			}
 		}
 
@@ -90,6 +79,16 @@ namespace ProyectoXamarin.ViewModels
 			finally
 			{
 				IsBusy = false;
+			}
+		}
+
+		public User NewUser
+		{
+			get => newUser;
+			set
+			{
+				newUser = value;
+				OnPropertyChanged();
 			}
 		}
 	}
