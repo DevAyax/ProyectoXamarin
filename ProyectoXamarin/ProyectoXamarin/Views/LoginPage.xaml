@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:fonts="clr-namespace:ProyectoXamarin.Fonts;assembly=ProyectoXamarin" 
-			 xmlns:behaviors ="clr-namespace:ProyectoXamarin.Behaviors"
-			 mc:Ignorable="d"
-             x:Class="ProyectoXamarin.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:behaviors="clr-namespace:ProyectoXamarin.Behaviors"
+			 xmlns:fonts="clr-namespace:ProyectoXamarin.Fonts;assembly=ProyectoXamarin"
+			 xmlns:viewModel="clr-namespace:ProyectoXamarin.ViewModels"
+			 x:Class="ProyectoXamarin.Views.LoginPage"
+			 x:DataType="viewModel:LoginViewModel"
+             Shell.NavBarIsVisible="True">
+	<ContentPage.BindingContext>
+		<viewModel:LoginViewModel />
+	</ContentPage.BindingContext>
 	<ContentPage.Content>
 		<StackLayout
             Padding="0"
@@ -15,16 +17,16 @@
             Opacity="0.9">
 			<Grid>
 				<StackLayout Margin="0" Padding="0">
-					    <Frame
-                            Padding="0"
-                            BackgroundColor="Orange"
-                            HeightRequest="190"
-                            HorizontalOptions="FillAndExpand">
-						    <ImageButton
-                                Margin="0"
-                                Aspect="AspectFill"
-                                Source="" />
-					    </Frame>
+					<Frame
+                        Padding="0"
+                        BackgroundColor="Orange"
+                        HeightRequest="190"
+                        HorizontalOptions="FillAndExpand">
+						<ImageButton
+                            Margin="0"
+                            Aspect="AspectFill"
+                            Source="" />
+					</Frame>
 				</StackLayout>
 				<StackLayout Margin="15,140,15,0">
 					<Frame
@@ -59,12 +61,12 @@
                                             WidthRequest="35">
 											<Label
                                                 FontFamily="Icomoon"
-                                                FontSize="Large"
+                                                FontSize="Micro"
                                                 HorizontalOptions="Center"
 												Margin="0,0,0,4"
-                                                VerticalOptions="Center" 
-												Text="{x:Static fonts:IconFonts.IconUserPlus}"
-											/>
+                                                VerticalOptions="Center"
+												TextColor="Black"
+												Text="{x:Static fonts:IconFonts.IconUserPlus}" />
 										</Frame>
 										<Entry
 											x:Name="entryUser"
@@ -72,13 +74,12 @@
                                             HorizontalOptions="FillAndExpand"
                                             Placeholder="Email"
                                             PlaceholderColor="LightSeaGreen"
-                                            TextColor="Black" 
+                                            TextColor="Black"
 											Text="{Binding NewUser.Email}">
 											<Entry.Behaviors>
-												<behaviors:EmailValidatorBehavior/>
+												<behaviors:EmailValidatorBehavior />
 											</Entry.Behaviors>
 										</Entry>
-										
 									</StackLayout>
 								</Frame>
 								<Frame
@@ -103,9 +104,8 @@
                                                 FontSize="Large"
                                                 HorizontalOptions="Center"
 												Margin="0,0,0,4"
-                                                VerticalOptions="Center" 
-												Text="{x:Static fonts:IconFonts.IconLock}"
-											/>
+                                                VerticalOptions="Center"
+												Text="{x:Static fonts:IconFonts.IconLock}" />
 										</Frame>
 										<Entry
 											x:Name="entryPassword"
@@ -114,17 +114,17 @@
                                             IsPassword="True"
                                             Placeholder="Password"
                                             PlaceholderColor="LightSeaGreen"
-                                            TextColor="Black" 
+                                            TextColor="Black"
 											Text="{Binding NewUser.Password}">
 											<Entry.Behaviors>
-												<behaviors:PasswordValidationBehavior/>
+												<behaviors:PasswordValidationBehavior />
 											</Entry.Behaviors>
 										</Entry>
 									</StackLayout>
 								</Frame>
 							</StackLayout>
 							<StackLayout Orientation="Horizontal">
-								<CheckBox IsChecked="False" Color="LightSeaGreen"  />
+								<CheckBox IsChecked="False" Color="LightSeaGreen" />
 								<Label
                                     HorizontalTextAlignment="Start"
                                     Text="Remember me"
@@ -142,19 +142,17 @@
                                 BackgroundColor="LightSeaGreen"
                                 CornerRadius="20"
                                 FontAttributes="Bold"
-                                Text="SIGN IN"
-                                TextColor="White" 
-								Command="{Binding LoginCommand}"
-							/>
+                                Text="Login"
+                                TextColor="White"
+								Command="{Binding LoginCommand}" />
 							<Button
 								x:Name="btnPrueba"
                                 BackgroundColor="LightSeaGreen"
                                 CornerRadius="20"
                                 FontAttributes="Bold"
-                                Text="GET"
-                                TextColor="White" 
-								Command="{Binding GetUserCommand}"
-							/>
+                                Text="Registrate"
+                                TextColor="White"
+								Command="{Binding RegsiterCommand}" />
 							<StackLayout Orientation="Horizontal">
 								<Label
                                     HorizontalOptions="Center"

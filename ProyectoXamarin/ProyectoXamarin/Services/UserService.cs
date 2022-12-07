@@ -11,6 +11,7 @@ using ProyectoXamarin.Views;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(UserService))]
+
 namespace ProyectoXamarin.Services
 {
 	public class UserService : IUserService
@@ -33,13 +34,13 @@ namespace ProyectoXamarin.Services
 		public async Task SaveAsync(User user)
 		{
 			var exist = await ExistAsync(user);
-			
+
 			if (exist)
 			{
 				UserDialogs.Instance.Toast($"Bienvenido {user.Email}", TimeSpan.FromSeconds(2));
-				
-				await userRepository.AddConstantUser((int)StatusEnum.Registered, user);
-				
+
+				await userRepository.UpdateSesionDataUser((int) StatusEnum.Registered, user);
+
 				await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 			}
 			else if (!string.IsNullOrEmpty(user.Email) & !string.IsNullOrEmpty(user.Password))
@@ -47,7 +48,7 @@ namespace ProyectoXamarin.Services
 				var statusUser = await userRepository.SaveItemAsync(user);
 
 				await utilities.GetSatatus(statusUser, "Usuario");
-				
+
 				await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 			}
 			else

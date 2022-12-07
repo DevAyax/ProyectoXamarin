@@ -1,5 +1,4 @@
-﻿
-namespace ProyectoXamarin.Fonts
+﻿namespace ProyectoXamarin.Fonts
 {
 	public static class Solid
 	{

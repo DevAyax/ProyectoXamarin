@@ -1,6 +1,4 @@
-﻿
-
-namespace ProyectoXamarin.Intetrfaces
+﻿namespace ProyectoXamarin.Intetrfaces
 {
 	public interface ICustomDependencyService
 	{

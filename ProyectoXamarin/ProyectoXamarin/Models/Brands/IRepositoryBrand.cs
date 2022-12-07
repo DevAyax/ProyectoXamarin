@@ -2,7 +2,7 @@
 
 namespace ProyectoXamarin.Models.Brands
 {
-    public interface IBrandRepository : IRepository<Brand>
-    {
+	public interface IBrandRepository : IRepository<Brand>
+	{
 	}
 }

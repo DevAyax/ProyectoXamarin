@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using ProyectoXamarin.Models;
+﻿using ProyectoXamarin.Models;
 using ProyectoXamarin.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace ProyectoXamarin.Views
 {

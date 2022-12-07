@@ -3,18 +3,21 @@ using System.Threading.Tasks;
 using ProyectoXamarin.Models.Brands;
 using ProyectoXamarin.Models.Cars;
 using ProyectoXamarin.Models.ModelCar;
-using ProyectoXamarin.Models.Users;
 
 namespace ProyectoXamarin.Interfaces
 {
-    public interface ICarService : IService<Car>
+	public interface ICarService : IService<Car>
 	{
-		Task<ObservableCollection<Brand>> GetBrandsAsync(ObservableCollection<Brand> _brands);
-		Task<Brand> GetBrandAsync(int brandId);
-		Task<ObservableCollection<Model>> GetModelsAsync(ObservableCollection<Model> _models, int brandId);
-		Task<Model> GetModelAsync(int modelId);
-		Task<ObservableCollection<Car>> GetAllCarsAsync(ObservableCollection<Car> cars);
-		Task UpdateAsync(Car entity);
+		Task<ObservableCollection<Car>> GetAllCarsAsync(ObservableCollection<Car> _cars);
+
+		Task<ObservableCollection<Model>> GetAllModelsAsync(ObservableCollection<Model> _models, int brandId);
+
+		Task<ObservableCollection<Brand>> GetAllBrandsAsync(ObservableCollection<Brand> _brands);
+
 		Task<Car> GetCarByUserAsync(int id);
+
+		Task<Brand> GetBrandAsync(int brandId);
+
+		Task<Model> GetModelAsync(int modelId);
 	}
 }

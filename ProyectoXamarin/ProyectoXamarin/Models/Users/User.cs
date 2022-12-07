@@ -39,8 +39,7 @@ namespace ProyectoXamarin.Models.Users
 				OnPropertyChanged();
 			}
 		}
-		
+
 		public int? CarId { get; set; }
-		
 	}
 }

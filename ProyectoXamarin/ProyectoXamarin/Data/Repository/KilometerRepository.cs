@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using ProyectoXamarin.Data.Repository;
 using ProyectoXamarin.Models.Kilometers;
-using SQLite;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(KilometerRepository))]
+
 namespace ProyectoXamarin.Data.Repository
 {
 	public class KilometerRepository : IKilometerRepository
@@ -15,7 +14,6 @@ namespace ProyectoXamarin.Data.Repository
 
 		public KilometerRepository()
 		{
-
 		}
 
 		//public async Task InitAsync()
@@ -50,18 +48,17 @@ namespace ProyectoXamarin.Data.Repository
 			int status = 0;
 
 			status = await App.DataBase.db.InsertAsync(kilometer);
-			await AddConstantKilometers(status, kilometer);
+			await UpdateSesionDataKilometers(status, kilometer);
 
 			return status;
 		}
 
-		public async Task AddConstantKilometers(int status, Kilometer kilometer)
+		public async Task UpdateSesionDataKilometers(int status, Kilometer kilometer)
 		{
 			if (status == 1)
 			{
-				var _kilometer = await App.DataBase.db.Table<Kilometer>().Where(k => k.Km == kilometer.Km ).FirstOrDefaultAsync();
-				Constants.kilometers = (int)_kilometer.Km;
-				Constants.kilometerEntity = _kilometer;
+				var _kilometer = await App.DataBase.db.Table<Kilometer>().Where(k => k.Km == kilometer.Km).FirstOrDefaultAsync();
+				SesionData.kilometers = (int) _kilometer.Km;
 			}
 		}
 	}

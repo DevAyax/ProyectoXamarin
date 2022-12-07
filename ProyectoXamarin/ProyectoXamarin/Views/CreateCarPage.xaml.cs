@@ -5,9 +5,9 @@ using Xamarin.Forms.Xaml;
 namespace ProyectoXamarin.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LoginPage : ContentPage
+	public partial class CreateCarPage : ContentPage
 	{
-		public LoginPage()
+		public CreateCarPage()
 		{
 			InitializeComponent();
 		}
@@ -15,9 +15,9 @@ namespace ProyectoXamarin.Views
 		protected override async void OnAppearing()
 		{
 			base.OnAppearing();
-			if (BindingContext is LoginViewModel loginViewModel)
+			if (BindingContext is CreateCarViewModel createCarViewModel)
 			{
-				await loginViewModel.OnAppearingAsync();
+				await createCarViewModel.OnAppearingAsync();
 			}
 		}
 	}

@@ -2,8 +2,8 @@
 
 namespace ProyectoXamarin.Interfaces
 {
-    public interface IUtilities
-    {
+	public interface IUtilities
+	{
 		Task GetSatatus(int state, string toast);
 	}
 }

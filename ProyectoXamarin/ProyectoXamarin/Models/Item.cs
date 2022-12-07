@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ProyectoXamarin.Models
+﻿namespace ProyectoXamarin.Models
 {
 	public class Item
 	{
