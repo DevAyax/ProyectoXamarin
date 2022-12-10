@@ -7,5 +7,6 @@ namespace ProyectoXamarin.Models.ModelCar
 	public interface IRepositoryModel : IRepository<Model>
 	{
 		Task<List<Model>> GetByBrandIdAsync(int brandId);
+		Task SetModelsIntoDataBase();
 	}
 }

@@ -19,5 +19,7 @@ namespace ProyectoXamarin.Interfaces
 		Task<Brand> GetBrandAsync(int brandId);
 
 		Task<Model> GetModelAsync(int modelId);
+
+		Task SetDataIntoDataBase();
 	}
 }

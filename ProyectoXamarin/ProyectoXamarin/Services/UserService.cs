@@ -26,10 +26,17 @@ namespace ProyectoXamarin.Services
 			this.utilities = DependencyService.Get<IUtilities>();
 		}
 
-		//public async Task InitAsync()
-		//{
-		//	await userRepository.InitAsync();
-		//}
+		public async Task InitAsync()
+		{
+			var users = await userRepository.GetAllAsync();
+
+			if (users.Any())
+			{
+				var user = users.OrderByDescending(c => c.Id).FirstOrDefault();
+				SesionData.UserId = user.Id;
+				await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+			}
+		}
 
 		public async Task SaveAsync(User user)
 		{

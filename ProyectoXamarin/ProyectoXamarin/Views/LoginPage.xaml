@@ -4,172 +4,156 @@
 			 xmlns:behaviors="clr-namespace:ProyectoXamarin.Behaviors"
 			 xmlns:fonts="clr-namespace:ProyectoXamarin.Fonts;assembly=ProyectoXamarin"
 			 xmlns:viewModel="clr-namespace:ProyectoXamarin.ViewModels"
+			 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
 			 x:Class="ProyectoXamarin.Views.LoginPage"
 			 x:DataType="viewModel:LoginViewModel"
-             Shell.NavBarIsVisible="True">
+             Shell.NavBarIsVisible="False"
+			 Shell.TabBarIsVisible="False">
 	<ContentPage.BindingContext>
 		<viewModel:LoginViewModel />
 	</ContentPage.BindingContext>
 	<ContentPage.Content>
-		<StackLayout
-            Padding="0"
-            BackgroundColor="LightSeaGreen"
-            Opacity="0.9">
-			<Grid>
-				<StackLayout Margin="0" Padding="0">
+		<Grid 
+			HorizontalOptions="FillAndExpand"
+			VerticalOptions="FillAndExpand" 
+			Style="{StaticResource GridGradient}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Image 
+				Grid.Row="0" 
+				Margin="0,30" 
+				Source="Yellow.png" 
+				Aspect="AspectFit" 
+				HeightRequest="180" 
+				WidthRequest="80"/>
+			<Frame Grid.Row="1" Margin="0,0,0,-40" BorderColor="Black" HasShadow="True"  CornerRadius="50" HeightRequest="700">
+				<Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="20" Padding="20,50,20,0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Label 
+						Grid.Row="0"  
+						Text="Welcome Back!" 
+						FontSize="24" 
+						FontAttributes="Bold" 
+						TextColor="Black" 
+						HorizontalOptions="CenterAndExpand"/>
+					<Label 
+						Grid.Row="1" 
+						Margin="0,-15,0,0" 
+						Text="Login in to account" 
+						TextColor="Gray"  
+						HorizontalOptions="CenterAndExpand"/>
 					<Frame
-                        Padding="0"
-                        BackgroundColor="Orange"
-                        HeightRequest="190"
+						Grid.Row="2"
+                        Padding="1"
+                        BorderColor="Black"
+                        CornerRadius="50"
                         HorizontalOptions="FillAndExpand">
-						<ImageButton
-                            Margin="0"
-                            Aspect="AspectFill"
-                            Source="" />
-					</Frame>
-				</StackLayout>
-				<StackLayout Margin="15,140,15,0">
-					<Frame
-                        BackgroundColor="White"
-                        HasShadow="True"
-                        HeightRequest="400"
-                        HorizontalOptions="FillAndExpand">
-						<StackLayout>
-							<StackLayout HorizontalOptions="CenterAndExpand">
+						<StackLayout Orientation="Horizontal" Padding="5">
+							<Frame
+                                Margin="7"
+                                Padding="0"
+								Style="{StaticResource FrameGradient}"
+                                CornerRadius="50"
+                                HeightRequest="35"
+                                HorizontalOptions="Start"
+								VerticalOptions="Center"
+                                WidthRequest="35">
 								<Label
-                                    FontAttributes="Bold"
-                                    FontSize="Medium"
-                                    Text="SIGN IN"
-                                    TextColor="Black" />
-							</StackLayout>
-							<StackLayout Margin="0,20,0,0">
-								<Frame
-                                    Margin="0"
-                                    Padding="0"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="LightSeaGreen"
-                                    CornerRadius="50"
-                                    HorizontalOptions="FillAndExpand">
-									<StackLayout Orientation="Horizontal">
-										<Frame
-                                            Margin="7"
-                                            Padding="0"
-                                            BackgroundColor="LightSeaGreen"
-                                            CornerRadius="50"
-                                            HeightRequest="35"
-                                            HorizontalOptions="Start"
-                                            WidthRequest="35">
-											<Label
-                                                FontFamily="Icomoon"
-                                                FontSize="Micro"
-                                                HorizontalOptions="Center"
-												Margin="0,0,0,4"
-                                                VerticalOptions="Center"
-												TextColor="Black"
-												Text="{x:Static fonts:IconFonts.IconUserPlus}" />
-										</Frame>
-										<Entry
-											x:Name="entryUser"
-                                            Margin="0,0,15,0"
-                                            HorizontalOptions="FillAndExpand"
-                                            Placeholder="Email"
-                                            PlaceholderColor="LightSeaGreen"
-                                            TextColor="Black"
-											Text="{Binding NewUser.Email}">
-											<Entry.Behaviors>
-												<behaviors:EmailValidatorBehavior />
-											</Entry.Behaviors>
-										</Entry>
-									</StackLayout>
-								</Frame>
-								<Frame
-                                    Margin="0,20,0,0"
-                                    Padding="0"
-                                    BackgroundColor="Transparent"
-                                    BorderColor="LightSeaGreen"
-                                    CornerRadius="50"
-                                    HorizontalOptions="FillAndExpand">
-									<StackLayout Orientation="Horizontal">
-										<Frame
-                                            Margin="7"
-                                            Padding="0"
-                                            BackgroundColor="LightSeaGreen"
-                                            CornerRadius="50"
-                                            HeightRequest="35"
-                                            HorizontalOptions="Start"
-                                            WidthRequest="35">
-											<Label
-                                                Padding="8,0,0,0"
-                                                FontFamily="Icomoon"
-                                                FontSize="Large"
-                                                HorizontalOptions="Center"
-												Margin="0,0,0,4"
-                                                VerticalOptions="Center"
-												Text="{x:Static fonts:IconFonts.IconLock}" />
-										</Frame>
-										<Entry
-											x:Name="entryPassword"
-                                            Margin="0,0,15,0"
-                                            HorizontalOptions="FillAndExpand"
-                                            IsPassword="True"
-                                            Placeholder="Password"
-                                            PlaceholderColor="LightSeaGreen"
-                                            TextColor="Black"
-											Text="{Binding NewUser.Password}">
-											<Entry.Behaviors>
-												<behaviors:PasswordValidationBehavior />
-											</Entry.Behaviors>
-										</Entry>
-									</StackLayout>
-								</Frame>
-							</StackLayout>
-							<StackLayout Orientation="Horizontal">
-								<CheckBox IsChecked="False" Color="LightSeaGreen" />
-								<Label
-                                    HorizontalTextAlignment="Start"
-                                    Text="Remember me"
-                                    VerticalTextAlignment="Center" />
-								<Label
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="EndAndExpand"
-                                    HorizontalTextAlignment="End"
-                                    Text="Forgot Password"
-                                    TextColor="LightSeaGreen"
-                                    VerticalOptions="Center" />
-							</StackLayout>
-							<Button
-								x:Name="btnSigin"
-                                BackgroundColor="LightSeaGreen"
-                                CornerRadius="20"
-                                FontAttributes="Bold"
-                                Text="Login"
-                                TextColor="White"
-								Command="{Binding LoginCommand}" />
-							<Button
-								x:Name="btnPrueba"
-                                BackgroundColor="LightSeaGreen"
-                                CornerRadius="20"
-                                FontAttributes="Bold"
-                                Text="Registrate"
-                                TextColor="White"
-								Command="{Binding RegsiterCommand}" />
-							<StackLayout Orientation="Horizontal">
-								<Label
+                                    FontFamily="icofont"
+                                    FontSize="Large"
                                     HorizontalOptions="Center"
-                                    HorizontalTextAlignment="Center"
-                                    Text="Still not conected ?"
-                                    VerticalTextAlignment="Center" />
-								<Label
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"
-                                    HorizontalTextAlignment="Center"
-                                    Text="Sign up"
-                                    TextColor="LightSeaGreen" />
-							</StackLayout>
+									Margin="0,0,0,4"
+                                    VerticalOptions="Center"
+									TextColor="Black"/>
+							</Frame>
+							<Entry
+								x:Name="entryUser"
+                                Margin="0,0,15,0"
+                                HorizontalOptions="FillAndExpand"
+                                Placeholder="Email"
+                                Style="{StaticResource EntryGradient}"
+								Text="{Binding NewUser.Email}">
+								<Entry.Behaviors>
+									<behaviors:EmailValidatorBehavior />
+								</Entry.Behaviors>
+							</Entry>
 						</StackLayout>
 					</Frame>
-				</StackLayout>
-			</Grid>
-		</StackLayout>
+					<Frame
+						Grid.Row="3"
+                        Padding="1"
+                        BackgroundColor="Transparent"
+                        BorderColor="Black"
+                        CornerRadius="50"
+                        HorizontalOptions="FillAndExpand">
+						<StackLayout Orientation="Horizontal" Padding="5">
+							<Frame
+                                Margin="7"
+                                Padding="0"
+                                Style="{StaticResource FrameGradient}"
+                                CornerRadius="50"
+                                HeightRequest="35"
+                                HorizontalOptions="Start"
+								VerticalOptions="Center"
+                                WidthRequest="35">
+								<Label
+                                    Padding="8,0,0,0"
+                                    FontFamily="icofont"
+                                    FontSize="Large"
+                                    HorizontalOptions="Center"
+									Margin="0,0,0,4"
+                                    VerticalOptions="Center"
+									TextColor="Black" />
+							</Frame>
+							<Entry
+								x:Name="entryPassword"
+                                Margin="0,0,15,0"
+                                HorizontalOptions="FillAndExpand"
+                                IsPassword="True"
+                                Placeholder="Password"
+                                Style="{StaticResource EntryGradient}"
+								Text="{Binding NewUser.Password}">
+								<Entry.Behaviors>
+									<behaviors:PasswordValidationBehavior />
+								</Entry.Behaviors>
+							</Entry>
+						</StackLayout>
+					</Frame>
+					<Button 
+						BorderWidth="2" 
+						Style="{StaticResource Key=botones}" 
+						Grid.Row="4" 
+						Text="Login"
+						Command="{Binding LoginCommand}"/>
+					<Label Grid.Row="5" Text="or signin with" HorizontalOptions="CenterAndExpand"></Label>
+					<StackLayout Grid.Row="6" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="40">
+						<Image Source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo626DNKJxdHM-VNRD0m7x_8Jim-r9kRalJQ" WidthRequest="30"
+                               HeightRequest="30" Aspect="AspectFit"></Image>
+						<Image Source="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnLfAn36-LTYNHjioWgvu-0KUTIDDrW5lX_g" WidthRequest="30"
+                               HeightRequest="30" Aspect="AspectFit"></Image>
+						<Image Source="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-icon-png-transparent-background-osteopathy-16.png" WidthRequest="30"
+                               HeightRequest="30" Aspect="AspectFit"></Image>
+						<Image Source="https://cdn-icons-png.flaticon.com/512/174/174857.png" WidthRequest="30"
+                               HeightRequest="30" Aspect="AspectFit"></Image>
+					</StackLayout>
+					<Label Grid.Row="7" Text="Forget Password" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"></Label>
+					<Label Grid.Row="8" Margin="0,-10,0,0" Text="Don't have an account? Sign up here" HorizontalOptions="CenterAndExpand"></Label>
+				</Grid>
+			</Frame>
+		</Grid>
 	</ContentPage.Content>
 </ContentPage>

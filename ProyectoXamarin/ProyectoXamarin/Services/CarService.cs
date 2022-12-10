@@ -109,5 +109,13 @@ namespace ProyectoXamarin.Services
 			await utilities.GetSatatus(status, "Coche");
 			await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 		}
+
+		public async Task SetDataIntoDataBase()
+		{
+			await brandRepository.SetBrandsIntoDataBase();
+			await modelRepository.SetModelsIntoDataBase();
+			var brands = await brandRepository.GetAllAsync();
+			var models = await modelRepository.GetAllAsync();
+		}
 	}
 }

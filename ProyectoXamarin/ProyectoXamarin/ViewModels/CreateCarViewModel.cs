@@ -70,7 +70,14 @@ namespace ProyectoXamarin.ViewModels
 
 		public async Task OnAppearingAsync()
 		{
-			await GetBrands();
+			var brands = await carService.GetAllBrandsAsync(new ObservableCollection<Brand>());
+
+			if (brands.Count == 0)
+			{
+				await carService.SetDataIntoDataBase();
+			}
+			
+			await GetBrands(brands);
 			await FillFields();
 		}
 
@@ -91,7 +98,7 @@ namespace ProyectoXamarin.ViewModels
 			}
 		}
 
-		public async Task GetBrands()
+		public async Task GetBrands(ObservableCollection<Brand> brands)
 		{
 			if (IsBusy)
 				Brands.Clear();
@@ -99,7 +106,7 @@ namespace ProyectoXamarin.ViewModels
 			try
 			{
 				IsBusy = true;
-				Brands = await carService.GetAllBrandsAsync(Brands);
+				Brands = brands;
 				IsBusy = false;
 			}
 			catch (Exception ex)

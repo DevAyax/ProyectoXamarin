@@ -11,5 +11,6 @@ namespace ProyectoXamarin.Interfaces
 		Task<List<User>> GetAllUsersAsync();
 
 		Task<User> GetUserAsync(int id);
+		Task InitAsync();
 	}
 }

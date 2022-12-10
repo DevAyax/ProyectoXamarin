@@ -16,21 +16,21 @@ namespace ProyectoXamarin.Data.Repository
 
 		public async Task<Car> GetByIdAsync(int id)
 		{
-			var Car = await App.DataBase.db.Table<Car>().Where(b => b.Id == id).FirstOrDefaultAsync();
+			var Car = await App.DataBase.connect.Table<Car>().Where(b => b.Id == id).FirstOrDefaultAsync();
 
 			return Car;
 		}
 
 		public async Task<List<Car>> GetAllAsync(bool forceRefresh = false)
 		{
-			var Cars = await App.DataBase.db.Table<Car>().ToListAsync();
+			var Cars = await App.DataBase.connect.Table<Car>().ToListAsync();
 
 			return Cars;
 		}
 
 		public async Task<int> UpdateCarAsync(Car car)
 		{
-			var status = await App.DataBase.db.UpdateAsync(car);
+			var status = await App.DataBase.connect.UpdateAsync(car);
 
 			if (status != 0)
 			{
@@ -43,7 +43,7 @@ namespace ProyectoXamarin.Data.Repository
 
 		public async Task<int> SaveCarAsync(Car car)
 		{
-			var status = await App.DataBase.db.InsertAsync(car);
+			var status = await App.DataBase.connect.InsertAsync(car);
 			await UpdateSesionDataCar(status, car);
 
 			return status;
@@ -51,13 +51,13 @@ namespace ProyectoXamarin.Data.Repository
 
 		public async Task<int> DeleteCarAsync(int id)
 		{
-			var car = await App.DataBase.db.Table<Car>().Where(b => b.Id == id).FirstOrDefaultAsync();
-			return await App.DataBase.db.DeleteAsync(car);
+			var car = await App.DataBase.connect.Table<Car>().Where(b => b.Id == id).FirstOrDefaultAsync();
+			return await App.DataBase.connect.DeleteAsync(car);
 		}
 
 		public async Task<Car> GetCarByUserAsync(int userId)
 		{
-			var car = await App.DataBase.db.Table<Car>().Where(c => c.UserId == userId).OrderByDescending(c => c.Id).FirstOrDefaultAsync();
+			var car = await App.DataBase.connect.Table<Car>().Where(c => c.UserId == userId).OrderByDescending(c => c.Id).FirstOrDefaultAsync();
 
 			return car;
 		}
@@ -66,7 +66,7 @@ namespace ProyectoXamarin.Data.Repository
 		{
 			if (status == 1)
 			{
-				var newCar = await App.DataBase.db.Table<Car>().Where(c => c.BrandId == car.BrandId & c.ModelId == car.ModelId).FirstOrDefaultAsync();
+				var newCar = await App.DataBase.connect.Table<Car>().Where(c => c.BrandId == car.BrandId & c.ModelId == car.ModelId).FirstOrDefaultAsync();
 				SesionData.CarId = newCar.Id;
 			}
 		}
