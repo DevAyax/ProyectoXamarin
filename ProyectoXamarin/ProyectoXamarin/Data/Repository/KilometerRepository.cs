@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using ProyectoXamarin.Data.Repository;
 using ProyectoXamarin.Models.Kilometers;
-using SQLite;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(KilometerRepository))]
+
 namespace ProyectoXamarin.Data.Repository
 {
 	public class KilometerRepository : IKilometerRepository
@@ -15,7 +14,6 @@ namespace ProyectoXamarin.Data.Repository
 
 		public KilometerRepository()
 		{
-
 		}
 
 		//public async Task InitAsync()
@@ -27,41 +25,40 @@ namespace ProyectoXamarin.Data.Repository
 
 		public async Task<List<Kilometer>> GetAllAsync(bool forceRefresh = false)
 		{
-			return await App.DataBase.db.Table<Kilometer>().OrderBy(k => k.DateCreation).ToListAsync();
+			return await App.DataBase.connect.Table<Kilometer>().OrderBy(k => k.DateCreation).ToListAsync();
 		}
 
 		public async Task<Kilometer> GetAsync(Kilometer km)
 		{
-			return await App.DataBase.db.Table<Kilometer>().FirstOrDefaultAsync(k => k.DateCreation == km.DateCreation & k.Km == km.Km);
+			return await App.DataBase.connect.Table<Kilometer>().FirstOrDefaultAsync(k => k.DateCreation == km.DateCreation & k.Km == km.Km);
 		}
 
 		public async Task<Kilometer> GetByIdAsync(int id)
 		{
-			return await App.DataBase.db.Table<Kilometer>().FirstOrDefaultAsync(k => k.Id == id);
+			return await App.DataBase.connect.Table<Kilometer>().FirstOrDefaultAsync(k => k.Id == id);
 		}
 
 		public async Task<List<Kilometer>> GetByCarId(int carId)
 		{
-			return await App.DataBase.db.Table<Kilometer>().Where(k => k.CarId == carId).ToListAsync();
+			return await App.DataBase.connect.Table<Kilometer>().Where(k => k.CarId == carId).ToListAsync();
 		}
 
 		public async Task<int> SaveAsync(Kilometer kilometer)
 		{
 			int status = 0;
 
-			status = await App.DataBase.db.InsertAsync(kilometer);
-			await AddConstantKilometers(status, kilometer);
+			status = await App.DataBase.connect.InsertAsync(kilometer);
+			await UpdateSesionDataKilometers(status, kilometer);
 
 			return status;
 		}
 
-		public async Task AddConstantKilometers(int status, Kilometer kilometer)
+		public async Task UpdateSesionDataKilometers(int status, Kilometer kilometer)
 		{
 			if (status == 1)
 			{
-				var _kilometer = await App.DataBase.db.Table<Kilometer>().Where(k => k.Km == kilometer.Km ).FirstOrDefaultAsync();
-				Constants.kilometers = (int)_kilometer.Km;
-				Constants.kilometerEntity = _kilometer;
+				var _kilometer = await App.DataBase.connect.Table<Kilometer>().Where(k => k.Km == kilometer.Km).FirstOrDefaultAsync();
+				SesionData.kilometers = (int) _kilometer.Km;
 			}
 		}
 	}

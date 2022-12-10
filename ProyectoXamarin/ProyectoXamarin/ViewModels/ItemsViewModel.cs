@@ -28,7 +28,7 @@ namespace ProyectoXamarin.ViewModels
 			AddItemCommand = new Command(OnAddItem);
 		}
 
-		async Task ExecuteLoadItemsCommand()
+		private async Task ExecuteLoadItemsCommand()
 		{
 			IsBusy = true;
 
@@ -72,7 +72,7 @@ namespace ProyectoXamarin.ViewModels
 			await Shell.Current.GoToAsync(nameof(NewItemPage));
 		}
 
-		async void OnItemSelected(Item item)
+		private async void OnItemSelected(Item item)
 		{
 			if (item == null)
 				return;

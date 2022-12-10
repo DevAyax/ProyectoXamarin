@@ -4,7 +4,7 @@ namespace ProyectoXamarin.Interfaces
 {
 	public interface IService<T> where T : class
 	{
-		//Task InitAsync();
+		Task UpdateAsync(T entity);
 
 		Task SaveAsync(T entity);
 	}

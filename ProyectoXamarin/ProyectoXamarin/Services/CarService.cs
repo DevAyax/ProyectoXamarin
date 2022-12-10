@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using ProyectoXamarin.Data.Repository;
 using ProyectoXamarin.Interfaces;
 using ProyectoXamarin.Models.Brands;
 using ProyectoXamarin.Models.Cars;
@@ -23,6 +21,7 @@ namespace ProyectoXamarin.Services
 		private readonly IUserRepository userRepository;
 		private readonly IBrandRepository brandRepository;
 		private readonly IRepositoryModel modelRepository;
+		private readonly IUserService userService;
 
 		public CarService()
 		{
@@ -31,15 +30,10 @@ namespace ProyectoXamarin.Services
 			this.brandRepository = DependencyService.Get<IBrandRepository>();
 			this.modelRepository = DependencyService.Get<IRepositoryModel>();
 			this.utilities = DependencyService.Get<IUtilities>();
+			this.userService = DependencyService.Get<IUserService>();
 		}
-		//public async Task InitAsync()
-		//{
-		//	await carRepository.InitAsync();
-		//	await brandRepository.InitAsync();
-		//	await modelRepository.InitAsync();
-		//}
 
-		public async Task<ObservableCollection<Brand>> GetBrandsAsync(ObservableCollection<Brand> _brands)
+		public async Task<ObservableCollection<Brand>> GetAllBrandsAsync(ObservableCollection<Brand> _brands)
 		{
 			var brands = await brandRepository.GetAllAsync();
 
@@ -52,7 +46,7 @@ namespace ProyectoXamarin.Services
 			return _brands;
 		}
 
-		public async Task<ObservableCollection<Model>> GetModelsAsync(ObservableCollection<Model> _models, int brandId)
+		public async Task<ObservableCollection<Model>> GetAllModelsAsync(ObservableCollection<Model> _models, int brandId)
 		{
 			var models = await modelRepository.GetByBrandIdAsync(brandId);
 
@@ -80,18 +74,17 @@ namespace ProyectoXamarin.Services
 
 		public async Task SaveAsync(Car car)
 		{
-			var cars = await carRepository.GetAllAsync();
 			var statusCar = await carRepository.SaveCarAsync(car);
 
 			await utilities.GetSatatus(statusCar, "Coche");
 
-			await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-		}
+			if (statusCar == 1)
+			{
+				var user = await userService.GetUserAsync(SesionData.UserId);
+				user.CarId = SesionData.CarId;
+				await userService.SaveAsync(user);
+			}
 
-		public async Task UpdateAsync(Car entity)
-		{
-			var status = await carRepository.UpdateCarAsync(entity);
-			await utilities.GetSatatus(status, "Coche");
 			await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 		}
 
@@ -108,6 +101,21 @@ namespace ProyectoXamarin.Services
 		public async Task<Model> GetModelAsync(int modelId)
 		{
 			return await modelRepository.GetByIdAsync(modelId);
+		}
+
+		public async Task UpdateAsync(Car entity)
+		{
+			var status = await carRepository.UpdateCarAsync(entity);
+			await utilities.GetSatatus(status, "Coche");
+			await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+		}
+
+		public async Task SetDataIntoDataBase()
+		{
+			await brandRepository.SetBrandsIntoDataBase();
+			await modelRepository.SetModelsIntoDataBase();
+			var brands = await brandRepository.GetAllAsync();
+			var models = await modelRepository.GetAllAsync();
 		}
 	}
 }

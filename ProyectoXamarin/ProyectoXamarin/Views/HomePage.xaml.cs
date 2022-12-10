@@ -12,12 +12,12 @@ namespace ProyectoXamarin.Views
 			InitializeComponent();
 		}
 
-		protected override async void OnBindingContextChanged()
+		protected override async void OnAppearing()
 		{
-			base.OnBindingContextChanged();
+			base.OnAppearing();
 			if (BindingContext is HomeViewModel homeViewModel)
 			{
-				await homeViewModel.OnActivatedAsync();
+				await homeViewModel.OnAppearingAsync();
 			}
 		}
 	}

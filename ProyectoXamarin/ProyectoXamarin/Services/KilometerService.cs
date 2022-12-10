@@ -2,13 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ProyectoXamarin.Interfaces;
-using ProyectoXamarin.Models.Cars;
 using ProyectoXamarin.Models.Kilometers;
 using ProyectoXamarin.Services;
 using Xamarin.Forms;
 
-
 [assembly: Dependency(typeof(KilometerService))]
+
 namespace ProyectoXamarin.Services
 {
 	public class KilometerService : IKilometerService
@@ -19,11 +18,6 @@ namespace ProyectoXamarin.Services
 		{
 			this.kilometerRepository = DependencyService.Get<IKilometerRepository>();
 		}
-
-		//public async Task InitAsync()
-		//{
-		//	await kilometerRepository.InitAsync();
-		//}
 
 		public async Task<ObservableCollection<Kilometer>> GetAllKilometersAsync(ObservableCollection<Kilometer> kilometers)
 		{
@@ -43,13 +37,13 @@ namespace ProyectoXamarin.Services
 		public async Task SaveAsync(Kilometer entity)
 		{
 			var kilometer = await kilometerRepository.GetAsync(entity);
-			if(kilometer == null)
+			if (kilometer == null)
 			{
 				var status = await kilometerRepository.SaveAsync(entity);
 
 				if (status > 0)
 				{
-					await kilometerRepository.AddConstantKilometers(status, entity);
+					await kilometerRepository.UpdateSesionDataKilometers(status, entity);
 				}
 			}
 		}
@@ -60,6 +54,11 @@ namespace ProyectoXamarin.Services
 			var km = kms.Where(k => k.CarId == carId).OrderByDescending(c => c.Id).FirstOrDefault();
 
 			return km;
+		}
+
+		public Task UpdateAsync(Kilometer entity)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

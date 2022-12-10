@@ -9,6 +9,7 @@ namespace ProyectoXamarin.ViewModels
 	{
 		public double latitude { get; set; }
 		public double longitude { get; set; }
+
 		public LocationCarViewModelxaml(double _latitude, double _longitude)
 		{
 			InitializeComponent();

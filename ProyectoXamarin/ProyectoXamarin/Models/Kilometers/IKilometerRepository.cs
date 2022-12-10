@@ -7,8 +7,11 @@ namespace ProyectoXamarin.Models.Kilometers
 	public interface IKilometerRepository : IRepository<Kilometer>
 	{
 		Task<int> SaveAsync(Kilometer kilometer);
+
 		Task<Kilometer> GetAsync(Kilometer km);
-		Task AddConstantKilometers(int status, Kilometer kilometer);
+
+		Task UpdateSesionDataKilometers(int status, Kilometer kilometer);
+
 		Task<List<Kilometer>> GetByCarId(int carId);
 	}
 }

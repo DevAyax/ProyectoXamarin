@@ -1,4 +1,6 @@
-﻿using ProyectoXamarin.ViewModels;
+﻿using System.Threading.Tasks;
+using ProyectoXamarin.Interfaces;
+using ProyectoXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,18 +9,17 @@ namespace ProyectoXamarin.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class LoginPage : ContentPage
 	{
+		private readonly IUserService userService;
+
 		public LoginPage()
 		{
-			InitializeComponent();
-			this.BindingContext = new LoginViewModel();
-		}
-		protected override async void OnBindingContextChanged()
-		{
-			base.OnBindingContextChanged();
-			if(BindingContext is LoginViewModel loginViewModel)
+			this.userService = DependencyService.Get<IUserService>();
+			Task.Run(async () =>
 			{
-				await loginViewModel.OnActivatedAsync();
-			}
+				await userService.InitAsync();
+			});
+
+			InitializeComponent();
 		}
 	}
 }

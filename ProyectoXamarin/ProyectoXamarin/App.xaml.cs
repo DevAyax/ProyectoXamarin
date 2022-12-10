@@ -27,6 +27,7 @@ namespace ProyectoXamarin
 				}
 			}
 		}
+
 		public App()
 		{
 			InitializeComponent();

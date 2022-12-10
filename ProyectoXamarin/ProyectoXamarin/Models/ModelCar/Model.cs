@@ -9,6 +9,5 @@ namespace ProyectoXamarin.Models.ModelCar
 		public string Name { get; set; }
 
 		public int? IdBrand { get; set; }
-		
 	}
 }

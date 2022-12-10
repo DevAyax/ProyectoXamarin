@@ -5,8 +5,8 @@ namespace ProyectoXamarin.Behaviors
 {
 	public class PasswordValidationBehavior : Behavior<Entry>
 	{
-		const string passwordRegex = @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.])[A-Za-z\d$@$!%*#?&.]{8,}$";
-		static readonly BindablePropertyKey IsValidPropertyKey = BindableProperty.CreateReadOnly("IsValid", typeof(bool), typeof(PasswordValidationBehavior), false);
+		private const string passwordRegex = @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&.])[A-Za-z\d$@$!%*#?&.]{8,}$";
+		private static readonly BindablePropertyKey IsValidPropertyKey = BindableProperty.CreateReadOnly("IsValid", typeof(bool), typeof(PasswordValidationBehavior), false);
 		public static readonly BindableProperty IsValidProperty = IsValidPropertyKey.BindableProperty;
 
 		public bool IsValid
@@ -21,7 +21,7 @@ namespace ProyectoXamarin.Behaviors
 			base.OnAttachedTo(bindable);
 		}
 
-		void HandleTextChanged(object sender, TextChangedEventArgs e)
+		private void HandleTextChanged(object sender, TextChangedEventArgs e)
 		{
 			IsValid = false;
 			IsValid = (Regex.IsMatch(e.NewTextValue, passwordRegex));

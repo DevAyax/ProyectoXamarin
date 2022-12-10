@@ -1,13 +1,11 @@
-﻿
-
-using System;
+﻿using System;
 using System.IO;
 using ProyectoXamarin.Interfaces;
 using SQLite;
 
 namespace ProyectoXamarin.iOS
 {
-    public class DatabaseConnection_iOS : IDataBaseConnection
+	public class DatabaseConnection_iOS : IDataBaseConnection
 	{
 		public SQLiteAsyncConnection DbConnection()
 		{
