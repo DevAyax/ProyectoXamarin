@@ -3,7 +3,8 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:viewModel="clr-namespace:ProyectoXamarin.ViewModels"
 			 x:Class="ProyectoXamarin.Views.HomePage"
-			 x:DataType="viewModel:HomeViewModel">
+			 x:DataType="viewModel:HomeViewModel"
+             Shell.NavBarIsVisible="false">
 	<ContentPage.BindingContext>
 		<viewModel:HomeViewModel />
 	</ContentPage.BindingContext>
@@ -12,7 +13,7 @@
 			<Frame
 				Margin="20,20,0,0"
 				Padding="0"
-				BackgroundColor="LightSeaGreen"
+				Style="{StaticResource FrameGradient}"
 				CornerRadius="50"
 				HeightRequest="35"
 				HorizontalOptions="Start"
@@ -59,7 +60,7 @@
 						Grid.Column="1"
 						Margin="7"
 						Padding="0"
-						BackgroundColor="LightSeaGreen"
+						Style="{StaticResource FrameGradient}"
 						CornerRadius="50"
 						HeightRequest="35"
 						HorizontalOptions="Start"
@@ -75,10 +76,12 @@
 							Margin="0,2,0,4"
 							VerticalOptions="Center"
 							Text="+"
+							TextColor="Black"
 							FontAttributes="Bold" />
 					</Frame>
 					<Button
 						Grid.Row="0"
+						Style="{StaticResource botones}"
 						Grid.Column="3"
 						x:Name="btnHostory"
 						Text="HISTORIAL" />

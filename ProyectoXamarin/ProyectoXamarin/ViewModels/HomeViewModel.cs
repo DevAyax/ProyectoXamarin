@@ -38,17 +38,12 @@ namespace ProyectoXamarin.ViewModels
 		public async Task OnAppearingAsync()
 		{
 			await GetAllInfo();
+			await GetPromptAsync();
 		}
 
 		public async Task GetAllInfo()
 		{
 			var user = await userService.GetUserAsync(SesionData.UserId);
-			var cars = await carService.GetAllCarsAsync(new System.Collections.ObjectModel.ObservableCollection<Models.Cars.Car>());
-			var count = cars.Count;
-			var c = count == 1 ? cars[0] : new Models.Cars.Car();
-			user.CarId = c.Id;
-			await userService.SaveAsync(user);
-			await kilometerService.SaveAsync(new Kilometer { CarId = c.Id, DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"), Km = c.Km });
 
 			if (user.CarId != null)
 			{
@@ -68,31 +63,33 @@ namespace ProyectoXamarin.ViewModels
 
 		public async Task GetPromptAsync()
 		{
-			var _Car = await carService.GetCarByUserAsync(SesionData.UserId);
-
-			var promptConfig = new PromptConfig();
-			promptConfig.InputType = InputType.Number;
-			promptConfig.IsCancellable = true;
-			promptConfig.Message = "Actualiza kilometros";
-			promptConfig.Placeholder = $"{SesionData.kilometers}";
-			var result = await UserDialogs.Instance.PromptAsync(promptConfig);
-
-			if (result.Ok)
+			var car = await carService.GetCarByUserAsync(SesionData.UserId);
+			if (car != null)
 			{
-				SesionData.kilometers = int.Parse(result.Text);
+				var promptConfig = new PromptConfig();
+				promptConfig.InputType = InputType.Number;
+				promptConfig.IsCancellable = true;
+				promptConfig.Message = "Actualiza kilometros";
+				promptConfig.Placeholder = $"{SesionData.kilometers}";
+				var result = await UserDialogs.Instance.PromptAsync(promptConfig);
 
-				await kilometerService.SaveAsync(new Kilometer
+				if (result.Ok)
 				{
-					Km = SesionData.kilometers,
-					CarId = _Car.Id,
-					DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")
-				});
+					SesionData.kilometers = int.Parse(result.Text);
 
-				Kilometers = $"{SesionData.kilometers} Km";
+					await kilometerService.SaveAsync(new Kilometer
+					{
+						Km = SesionData.kilometers,
+						CarId = car.Id,
+						DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")
+					});
 
-				_Car.Km = SesionData.kilometers;
+					Kilometers = $"{SesionData.kilometers} Km";
 
-				await carService.UpdateAsync(_Car);
+					car.Km = SesionData.kilometers;
+
+					await carService.UpdateAsync(car);
+				}
 			}
 		}
 

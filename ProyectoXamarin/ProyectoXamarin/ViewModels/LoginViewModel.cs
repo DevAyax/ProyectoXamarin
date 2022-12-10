@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProyectoXamarin.Interfaces;
 using ProyectoXamarin.Models.Users;
+using ProyectoXamarin.Views;
 using Xamarin.Forms;
 
 namespace ProyectoXamarin.ViewModels
@@ -22,17 +23,6 @@ namespace ProyectoXamarin.ViewModels
 			NewUser = new User();
 			LoginCommand = new Command(async () => await SaveUser());
 			RegsiterCommand = new Command(async () => await SaveUser());
-		}
-
-		public async Task OnAppearingAsync()
-		{
-			var users = await userService.GetAllUsersAsync();
-
-			if (users.Any())
-			{
-				NewUser = users.OrderByDescending(c => c.Id).FirstOrDefault();
-				SesionData.UserId = NewUser.Id;
-			}
 		}
 
 		public async Task SaveUser()

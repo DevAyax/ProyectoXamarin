@@ -25,29 +25,29 @@ namespace ProyectoXamarin.Data.Repository
 
 		public async Task<List<Kilometer>> GetAllAsync(bool forceRefresh = false)
 		{
-			return await App.DataBase.db.Table<Kilometer>().OrderBy(k => k.DateCreation).ToListAsync();
+			return await App.DataBase.connect.Table<Kilometer>().OrderBy(k => k.DateCreation).ToListAsync();
 		}
 
 		public async Task<Kilometer> GetAsync(Kilometer km)
 		{
-			return await App.DataBase.db.Table<Kilometer>().FirstOrDefaultAsync(k => k.DateCreation == km.DateCreation & k.Km == km.Km);
+			return await App.DataBase.connect.Table<Kilometer>().FirstOrDefaultAsync(k => k.DateCreation == km.DateCreation & k.Km == km.Km);
 		}
 
 		public async Task<Kilometer> GetByIdAsync(int id)
 		{
-			return await App.DataBase.db.Table<Kilometer>().FirstOrDefaultAsync(k => k.Id == id);
+			return await App.DataBase.connect.Table<Kilometer>().FirstOrDefaultAsync(k => k.Id == id);
 		}
 
 		public async Task<List<Kilometer>> GetByCarId(int carId)
 		{
-			return await App.DataBase.db.Table<Kilometer>().Where(k => k.CarId == carId).ToListAsync();
+			return await App.DataBase.connect.Table<Kilometer>().Where(k => k.CarId == carId).ToListAsync();
 		}
 
 		public async Task<int> SaveAsync(Kilometer kilometer)
 		{
 			int status = 0;
 
-			status = await App.DataBase.db.InsertAsync(kilometer);
+			status = await App.DataBase.connect.InsertAsync(kilometer);
 			await UpdateSesionDataKilometers(status, kilometer);
 
 			return status;
@@ -57,7 +57,7 @@ namespace ProyectoXamarin.Data.Repository
 		{
 			if (status == 1)
 			{
-				var _kilometer = await App.DataBase.db.Table<Kilometer>().Where(k => k.Km == kilometer.Km).FirstOrDefaultAsync();
+				var _kilometer = await App.DataBase.connect.Table<Kilometer>().Where(k => k.Km == kilometer.Km).FirstOrDefaultAsync();
 				SesionData.kilometers = (int) _kilometer.Km;
 			}
 		}
