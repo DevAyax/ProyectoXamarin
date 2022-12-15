@@ -60,8 +60,22 @@
 					</LinearGradientBrush>
 				</Setter>
 			</Style>
-			<Style TargetType="Button"
-                   x:Key="botones">
+			<Style
+				TargetType="ImageButton"
+				x:Key="imgButton">
+				<Setter Property="BackgroundColor">
+					<LinearGradientBrush StartPoint="0,0"
+                                         EndPoint="0,1">
+						<GradientStop Offset="0.1"
+                                      Color="#FFDE59" />
+						<GradientStop Offset="1.0"
+                                      Color="#F9D423" />
+					</LinearGradientBrush>
+				</Setter>
+			</Style>
+			<Style 
+				TargetType="Button"
+                x:Key="botones">
 				<Setter Property="Background">
 					<LinearGradientBrush StartPoint="0,0"
                                          EndPoint="0,1">
@@ -91,6 +105,13 @@
 						<GradientStop Offset="1.0"
                                       Color="#F9D423" />
 					</LinearGradientBrush>
+				</Setter>
+			</Style>
+			<Style	
+				TargetType="Label" 
+				x:Key="labels">
+				<Setter Property="TextColor">
+					<Color>#F9D423</Color>
 				</Setter>
 			</Style>
 		</ResourceDictionary>

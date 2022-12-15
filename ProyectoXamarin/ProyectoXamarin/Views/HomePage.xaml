@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:viewModel="clr-namespace:ProyectoXamarin.ViewModels"
+			 xmlns:dataTemplate="clr-namespace:ProyectoXamarin.Views.Templates"
 			 x:Class="ProyectoXamarin.Views.HomePage"
 			 x:DataType="viewModel:HomeViewModel"
              Shell.NavBarIsVisible="false">
@@ -15,28 +16,21 @@
 				Padding="0"
 				Style="{StaticResource FrameGradient}"
 				CornerRadius="50"
-				HeightRequest="35"
+				HeightRequest="40"
 				HorizontalOptions="Start"
 				WidthRequest="175">
-				<Frame.GestureRecognizers>
-					<!--<TapGestureRecognizer
-								Command="{Binding AddKilometersCommand}"
-								NumberOfTapsRequired="1"
-							/>-->
-				</Frame.GestureRecognizers>
 				<Label
 					FontSize="Large"
 					HorizontalOptions="Center"
-					Margin="0,2,0,4"
+					Margin="0,0,0,4"
 					VerticalOptions="Center"
 					FontAttributes="Bold"
 					Text="{Binding InfoCar}" />
-			</Frame>
+			</Frame>									  
 			<Image x:Name="imagenCarga"
-                Source="Smax.jpg"
-			    Margin="50,0,0,0"
-                HeightRequest="200"
-                WidthRequest="200"
+                Source="{Binding Image}"
+				Margin="-20"
+                Aspect="AspectFit"
                 IsVisible="true" />
 			<StackLayout Orientation="Horizontal" Margin="0,20,0,0">
 				<Grid RowDefinitions="50,20" ColumnDefinitions="200,auto, auto,*">
@@ -52,7 +46,7 @@
 						Grid.ColumnSpan="2"
 						FontSize="Micro"
 						HorizontalOptions="Center"
-						Margin="-40,-20,0,4"
+						Margin="-30,-20,0,4"
 						VerticalOptions="Center"
 						Text="{Binding InfoDate}" />
 					<Frame
@@ -79,14 +73,62 @@
 							TextColor="Black"
 							FontAttributes="Bold" />
 					</Frame>
-					<Button
+					<Frame
 						Grid.Row="0"
-						Style="{StaticResource botones}"
 						Grid.Column="3"
-						x:Name="btnHostory"
-						Text="HISTORIAL" />
+						Margin="7"
+						Padding="0"
+						Style="{StaticResource FrameGradient}"
+						CornerRadius="50"
+						HeightRequest="35"
+						HorizontalOptions="Start"
+						WidthRequest="35">
+						<ImageButton
+							Grid.Row="0"
+							BackgroundColor="#F9D423"
+							Aspect="AspectFit"
+							CornerRadius="25"
+							Padding="5"
+							Grid.Column="3"
+							Source="bell"/>
+					</Frame>
+					
 				</Grid>
 			</StackLayout>
+			<Grid 
+				Padding="5,0"
+				HorizontalOptions="FillAndExpand"
+				VerticalOptions="FillAndExpand">
+				<Frame 
+					Margin="0,0,0,-40" 
+					HasShadow="True"
+					CornerRadius="50" 
+					IsClippedToBounds="True"
+					OutlineColor="Accent"
+					BackgroundColor="Black"
+					Opacity="0.8"
+					HeightRequest="400">
+					<RefreshView 
+						IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+						Command="{Binding RefreshCommand}"
+						RefreshColor="Yellow">
+						<CollectionView
+							HorizontalOptions="Start"
+							VerticalScrollBarVisibility="Always"
+							HorizontalScrollBarVisibility="Never"
+							ItemsSource="{Binding KilometersList}"
+							SelectedItem="{Binding SelectedKilometer, Mode=TwoWay}"
+							EmptyView="No hay registros de kilometros"
+							SelectionMode="None">
+							<CollectionView.ItemTemplate>
+								<DataTemplate>
+									<dataTemplate:KilometersTemplate />
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+					</RefreshView>
+				</Frame>
+			</Grid>
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

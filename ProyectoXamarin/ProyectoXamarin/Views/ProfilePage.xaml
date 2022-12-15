@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoXamarin.Views.ProfilePage"
+			 xmlns:behaviors="clr-namespace:ProyectoXamarin.Behaviors"
+			 xmlns:viewModel="clr-namespace:ProyectoXamarin.ViewModels"
+			 Shell.NavBarIsVisible="False">
+	<ContentPage.BindingContext>
+		<viewModel:LoginViewModel/>
+	</ContentPage.BindingContext>
+	<ContentPage.Content>
+		<Grid 
+			HorizontalOptions="FillAndExpand"
+			VerticalOptions="FillAndExpand" 
+			Style="{StaticResource GridGradient}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Image 
+				Grid.Row="0" 
+				Margin="-10,30,0,-30" 
+				Source="Yellow.png" 
+				Aspect="AspectFit" 
+				HeightRequest="180" 
+				WidthRequest="80"/>
+			<Frame 
+				Grid.Row="1" 
+				Margin="20" 
+				BorderColor="Black" 
+				HasShadow="True" 
+				CornerRadius="50" 
+				HeightRequest="800">
+				<Grid 
+					HorizontalOptions="FillAndExpand" 
+					VerticalOptions="FillAndExpand" 
+					RowSpacing="20" 
+					Padding="20,30,20,0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Label 
+						Grid.Row="0"  
+						Text="Perfil de usuario" 
+						FontSize="24" 
+						FontAttributes="Bold" 
+						TextColor="Black" 
+						HorizontalOptions="CenterAndExpand"/>
+					<Label 
+						Grid.Row="1" 
+						Margin="0,-15,0,0" 
+						Text="Login in to account" 
+						TextColor="Gray"  
+						HorizontalOptions="CenterAndExpand"/>
+					<Frame
+						Grid.Row="2"
+                        Padding="1"
+                        BorderColor="Black"
+                        CornerRadius="50"
+                        HorizontalOptions="FillAndExpand">
+						<StackLayout Orientation="Horizontal" Padding="5">
+							<Frame
+                                Margin="5"
+                                Padding="5"
+								Style="{StaticResource FrameGradient}"
+                                CornerRadius="50"
+                                HeightRequest="25"
+                                HorizontalOptions="Start"
+								VerticalOptions="Center"
+                                WidthRequest="25">
+								<Image
+									Aspect="AspectFit"
+									Source="usuario"
+									WidthRequest="10"
+									HeightRequest="10"/>
+							</Frame>
+							<Entry
+                                Margin="0,0,15,0"
+                                HorizontalOptions="FillAndExpand"
+                                Placeholder="Email"
+                                Style="{StaticResource EntryGradient}"
+								Text="{Binding NewUser.Email}">
+								<Entry.Behaviors>
+									<behaviors:EmailValidatorBehavior />
+								</Entry.Behaviors>
+							</Entry>
+						</StackLayout>
+					</Frame>
+					<Frame
+						Grid.Row="3"
+                        Padding="1"
+                        BackgroundColor="Transparent"
+                        BorderColor="Black"
+                        CornerRadius="50"
+                        HorizontalOptions="FillAndExpand">
+						<StackLayout Orientation="Horizontal" Padding="5">
+							<Frame
+                                Margin="5"
+                                Padding="5"
+                                Style="{StaticResource FrameGradient}"
+                                CornerRadius="50"
+                                HeightRequest="25"
+                                HorizontalOptions="Center"
+								VerticalOptions="Center"
+                                WidthRequest="25">
+								<Image
+									Aspect="AspectFit"
+									Source="cerrar"
+									WidthRequest="10"
+									HeightRequest="10"/>
+							</Frame>
+							<Entry
+								x:Name="entryPassword"
+                                Margin="0,0,15,0"
+                                HorizontalOptions="FillAndExpand"
+                                IsPassword="True"
+                                Placeholder="Password"
+								
+                                Style="{StaticResource EntryGradient}"
+								Text="{Binding NewUser.Password}">
+								<Entry.Behaviors>
+									<behaviors:PasswordValidationBehavior />
+								</Entry.Behaviors>
+							</Entry>
+						</StackLayout>
+					</Frame>
+					<Button 
+						BorderWidth="2" 
+						Style="{StaticResource Key=botones}" 
+						Grid.Row="4" 
+						Text="Logout"
+						Command="{Binding LogoutCommand}"/>
+				</Grid>
+			</Frame>
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>

@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
 	   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	   xmlns:fonts="clr-namespace:ProyectoXamarin.Fonts"
 	   xmlns:local="clr-namespace:ProyectoXamarin.Views"
 	   Title="ProyectoXamarin"
 	   x:Class="ProyectoXamarin.AppShell">
-	<!--
-        The overall app visual hierarchy is defined here, along with navigation.
 
-        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
-    -->
 	<Shell.Resources>
 		<ResourceDictionary>
 			<Style x:Key="BaseStyle" TargetType="Element">
@@ -28,16 +23,10 @@
 		</ResourceDictionary>
 	</Shell.Resources>
 	<TabBar>
-		<ShellContent Title="User" Icon="{x:Static fonts:IconFonts.IconUserPlus}" Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-		<ShellContent Title="Home" Icon="{x:Static fonts:IconFonts.IconPlus}" Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
-		<ShellContent Title="Add" Icon="{x:Static fonts:IconFonts.IconHome3}" Route="CarPage" ContentTemplate="{DataTemplate local:CreateCarPage}" />
-		<ShellContent Title="About" Icon="{x:Static fonts:IconFonts.IconPlus}" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+		<ShellContent Title="Home" Icon="hogar" Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
+		<ShellContent Title="Add" Icon="agregar" Route="CarPage" ContentTemplate="{DataTemplate local:CreateCarPage}" />
+		<ShellContent Title="Location" Icon="marcador" Route="LocationCarPage" ContentTemplate="{DataTemplate local:LocationCarPage}" />
+		<ShellContent Title="Profile" Icon="usuario" Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" />
 	</TabBar>
-	<!--
-        If you would like to navigate to this content you can do so by calling
-        await Shell.Current.GoToAsync("//LoginPage");
-    -->
-	<!--<TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>-->
+	
 </Shell>

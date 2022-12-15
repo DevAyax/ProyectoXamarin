@@ -6,11 +6,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Fonts\**" />
+    <EmbeddedResource Remove="Fonts\**" />
+    <None Remove="Fonts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="GettingStarted.txt" />
+    <None Remove="Imagenes\car.png" />
+    <None Remove="Imagenes\Locations.png" />
+    <None Remove="Imagenes\Yellow.png" />
     <None Remove="MyDataBase.db" />
   </ItemGroup>
 
@@ -18,6 +27,9 @@
     <EmbeddedResource Include="AssemblyInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Imagenes\car.png" />
+    <EmbeddedResource Include="Imagenes\Locations.png" />
+    <EmbeddedResource Include="Imagenes\Yellow.png" />
     <EmbeddedResource Include="MyDataBase.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -28,10 +40,13 @@
     <PackageReference Include="Acr.UserDialogs" Version="7.2.0.564" />
     <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="MagicGradients" Version="1.3.1" />
+    <PackageReference Include="RestSharp" Version="108.0.3" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />  
+    <PackageReference Include="Xamarin.Forms.BehaviorsPack" Version="3.0.0" />  
     <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2515" />  
+    <PackageReference Include="Xamarin.Forms.OpenWhatsApp" Version="1.0.1" />  
     <PackageReference Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2515" />
   </ItemGroup>
 
@@ -42,30 +57,32 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\About\AboutPage.xaml.cs">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\CreateCarPage.xaml.cs">
       <DependentUpon>CreateCarPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\LocationCarViewModel.xaml.cs">
-      <DependentUpon>LocationCarViewModel.xaml</DependentUpon>
+    <Compile Update="Views\LocationCarPage.xaml.cs">
+      <DependentUpon>LocationCarPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\ProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Templates\KilometersTemplate.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\HomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\LocationCarViewModel.xaml">
+    <EmbeddedResource Update="Views\LocationCarPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\CreateCarPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Fonts\" />
+    <EmbeddedResource Update="Views\RegistrationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

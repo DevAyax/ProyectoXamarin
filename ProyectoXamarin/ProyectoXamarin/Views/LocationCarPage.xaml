@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodel="clr-namespace:ProyectoXamarin.ViewModels"
+			 x:Class="ProyectoXamarin.Views.LocationCarPage"
+			 BackgroundImageSource="Locations"
+			 x:DataType="viewmodel:LocationCarViewModel"
+             Shell.NavBarIsVisible="false">
+	<ContentPage.BindingContext>
+		<viewmodel:LocationCarViewModel/>
+	</ContentPage.BindingContext>
+	<ContentPage.Content>
+		<StackLayout Orientation="Vertical" Margin="0,450,0,0">
+			<Grid 
+				RowDefinitions="40,40,40,40,40" 
+				ColumnDefinitions="60,auto,60" 
+				Margin="118,0,0,0">
+				<Button
+					Grid.Row="0"
+					Grid.ColumnSpan="2"
+					Margin="-10,0,0,0"
+					Text="Guardar posición"
+					Style="{x:StaticResource botones}"
+					Command="{Binding SavePositionCommand}"/>
+				<StackLayout 
+					Orientation="Horizontal" 
+					Grid.Row="1"
+					Grid.ColumnSpan="2"
+					Margin="0,5,0,0">
+					<Label
+						Margin="-10,0,0,0"
+						Text="Latitud:"
+						TextColor="Black"
+						FontSize="Body"/>
+					<Label
+						Style="{x:StaticResource labels}"
+						Text="{Binding NewLocation.Latitude}"
+						Margin="0,1,0,0"
+						TextColor="Black"/>
+				</StackLayout>
+				<StackLayout 
+					Orientation="Horizontal" 
+					Grid.Row="2"
+					Grid.ColumnSpan="2"
+					Margin="0,-15,0,0">
+					<Label
+						Margin="-10,0,0,0"
+						Text="Longitud:"
+						TextColor="Black"
+						FontSize="Body"/>
+					<Label
+						Style="{x:StaticResource labels}"
+						Text="{Binding NewLocation.Longitude}" 
+						Margin="0,1,0,0"
+						TextColor="Black"/>
+				</StackLayout>
+				<StackLayout 
+					Orientation="Vertical" 
+					Grid.Row="3" Grid.RowSpan="2" 
+					Grid.ColumnSpan="2" 
+					Margin="0,-30,0,0">
+					<Grid RowDefinitions="40,40"
+						  ColumnDefinitions="60,auto,60">
+						<Button 
+							Grid.Row="0"
+							Grid.ColumnSpan="3"
+							Margin="-10,0,0,0"
+							Text="Info"
+							Style="{x:StaticResource botones}"
+							Command="{Binding InfoCommand}"/>
+						<Button
+							Grid.Row="1"
+							Grid.ColumnSpan="3"
+							Margin="-10,0,0,0"
+							Text="Como llegar"
+							Style="{x:StaticResource botones}"
+							Command="{Binding HowToGetCommand}"/>
+					</Grid>
+					
+				</StackLayout>
+			</Grid>
+			
+			
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>
