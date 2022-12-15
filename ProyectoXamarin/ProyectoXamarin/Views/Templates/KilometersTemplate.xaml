@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="ProyectoXamarin.Views.Templates.KilometersTemplate">
+	<ContentView.Content>
+		<StackLayout Orientation="Horizontal" Spacing="10" Margin="0,0,0,20">
+			<Frame
+				Margin="0,0,0,0" 
+				HasShadow="True"
+				CornerRadius="25" 
+				IsClippedToBounds="True"
+				OutlineColor="Accent">
+				<Image
+					Grid.Column="0"
+					Source="car"
+					Aspect="AspectFit"
+					WidthRequest="35"
+					HeightRequest="35"
+					Margin="0,0,0,0"
+					VerticalOptions="Center"
+					HorizontalOptions="Start"/>
+			</Frame>
+			<Label
+				Grid.Column="1"
+				VerticalOptions="Center"
+				Text="{Binding Km}"
+				TextColor="white"
+				Margin="0,0,0,0" />
+			<Label
+				VerticalOptions="Center"
+				Grid.Column="2"
+				Text="Km"
+				TextColor="white"
+				FontSize="16" />
+			<Label 
+				Text="{Binding DateCreation}"
+				VerticalOptions="Center"
+				TextColor="white"
+				FontSize="16"
+				Grid.Column="3"/>
+		</StackLayout>
+	</ContentView.Content>
+</ContentView>

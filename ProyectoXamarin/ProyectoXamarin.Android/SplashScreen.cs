@@ -10,7 +10,7 @@ namespace ProyectoXamarin.Droid
 		Theme = "@style/newTheme",
 		MainLauncher = true,
 		NoHistory = true,
-		ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+		ConfigurationChanges = ConfigChanges.ScreenSize)]
 	public class SplashScreen : Activity
 	{
 		protected override void OnCreate(Bundle savedInstanceState)

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProyectoXamarin.Views.RegistrationPage"
+			 x:DataType="viewModel:LoginViewModel"
+			 xmlns:viewModel="clr-namespace:ProyectoXamarin.ViewModels"
+			 xmlns:behaviors="clr-namespace:ProyectoXamarin.Behaviors"
+			 Shell.NavBarIsVisible="False"
+			 Shell.TabBarIsVisible="False">
+	
+	<ContentPage.BindingContext>
+		<viewModel:LoginViewModel/>
+	</ContentPage.BindingContext>
+	
+    <ContentPage.Content>
+		<Grid 
+			HorizontalOptions="FillAndExpand"
+			VerticalOptions="FillAndExpand" 
+			Style="{StaticResource GridGradient}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<Frame 
+				Grid.Row="1" 
+				Margin="20" 
+				BorderColor="Black" 
+				HasShadow="True" 
+				CornerRadius="50" 
+				HeightRequest="800">
+				<Grid 
+					HorizontalOptions="CenterAndExpand" 
+					VerticalOptions="CenterAndExpand" 
+					RowSpacing="20" 
+					Padding="20,30,20,0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition Height="Auto"></RowDefinition>
+					</Grid.RowDefinitions>
+					<Label 
+						Grid.Row="0"
+						Margin="0,-100,0,0"
+						Text="Registro de Usuario" 
+						FontSize="24" 
+						FontAttributes="Bold" 
+						TextColor="Black" 
+						HorizontalOptions="CenterAndExpand"/>
+					<Frame
+						Grid.Row="1"
+                        Padding="1"
+                        BackgroundColor="Transparent"
+                        BorderColor="Black"
+                        CornerRadius="50"
+                        HorizontalOptions="FillAndExpand">
+						<Entry
+                            Margin="5,0,5,0"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Nombre"
+                            Style="{StaticResource EntryGradient}"
+							Text="{Binding NewUser.Name}"></Entry>
+					</Frame>
+					<Frame
+						Grid.Row="2"
+                        Padding="1"
+                        BackgroundColor="Transparent"
+                        BorderColor="Black"
+                        CornerRadius="50"
+                        HorizontalOptions="FillAndExpand">
+						<Entry
+                            Margin="5,0,5,1"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Apellidos"
+                            Style="{StaticResource EntryGradient}"
+							Text="{Binding NewUser.Surname}"></Entry>
+					</Frame>
+					<Frame
+						Grid.Row="3"
+                        Padding="1"
+                        BackgroundColor="Transparent"
+                        BorderColor="Black"
+                        CornerRadius="50"
+                        HorizontalOptions="FillAndExpand">
+						<Entry
+                            Margin="5,0,5,0"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Email"
+                            Style="{StaticResource EntryGradient}"
+							Text="{Binding NewUser.Email}">
+							<Entry.Behaviors>
+								<behaviors:EmailValidatorBehavior />
+							</Entry.Behaviors>
+						</Entry>
+					</Frame>
+					<Frame
+						Grid.Row="4"
+                        Padding="1"
+                        BackgroundColor="Transparent"
+                        BorderColor="Black"
+                        CornerRadius="50"
+                        HorizontalOptions="FillAndExpand">
+						<Entry
+                            Margin="5,0,5,0"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="Password"
+							IsPassword="True"
+                            Style="{StaticResource EntryGradient}"
+							Text="{Binding NewUser.Password}">
+							<Entry.Behaviors>
+								<behaviors:PasswordValidationBehavior />
+							</Entry.Behaviors>
+						</Entry>
+					</Frame>
+					<Button 
+						Margin="0,0,0,0"
+						BorderWidth="2" 
+						Style="{StaticResource Key=botones}" 
+						Grid.Row="7" 
+						Text="Registrate"
+						Command="{Binding RegisterCommand}"/>
+				</Grid>
+			</Frame>
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>

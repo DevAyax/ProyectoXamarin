@@ -10,7 +10,7 @@
 	</item>
 
 	<item android:drawable="@drawable/Yellow"
-          android:gravity="center">
-	</item>
+		  android:tileMode="disabled"
+          android:gravity="center" />
 </layer-list>
 
