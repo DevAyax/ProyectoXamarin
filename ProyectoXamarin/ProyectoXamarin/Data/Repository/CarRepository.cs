@@ -121,7 +121,7 @@ namespace ProyectoXamarin.Data.Repository
 			if (status == 1)
 			{
 				var newCar = await App.DataBase.connect.Table<Car>().Where(c => c.BrandId == car.BrandId & c.ModelId == car.ModelId).FirstOrDefaultAsync();
-				SesionData.carId = newCar.Id;
+				SesionData.CarId = newCar.Id;
 			}
 		}
 	}

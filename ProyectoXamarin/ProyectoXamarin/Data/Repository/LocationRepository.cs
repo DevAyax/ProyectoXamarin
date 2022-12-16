@@ -114,10 +114,10 @@ namespace ProyectoXamarin.Data.Repository
 			SesionData.latitude = (double) _location.Latitude;
 			SesionData.longitude = (double) _location.Longitude;
 			SesionData.longitude = (double) _location.Longitude;
-			SesionData.countryName = _location.CountryName;
-			SesionData.adminArea = _location.AdminArea;
-			SesionData.address = _location.Address;
-			SesionData.locality = _location.Locality;
+			SesionData.CountryName = _location.CountryName;
+			SesionData.AdminArea = _location.AdminArea;
+			SesionData.Address = _location.Address;
+			SesionData.Locality = _location.Locality;
 		}
 	}
 }

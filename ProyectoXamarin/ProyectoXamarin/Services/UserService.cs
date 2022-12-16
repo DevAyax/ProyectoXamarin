@@ -48,11 +48,17 @@ namespace ProyectoXamarin.Services
 		private readonly IUtilities utilities;
 
 		/// <summary>
+		/// The email service
+		/// </summary>
+		private readonly IEmailService emailService;
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="UserService" /> class.
 		/// </summary>
 		public UserService()
 		{
 			this.userRepository = DependencyService.Get<IUserRepository>();
+			this.emailService = DependencyService.Get<IEmailService>();
 			this.utilities = DependencyService.Get<IUtilities>();
 		}
 
@@ -67,11 +73,35 @@ namespace ProyectoXamarin.Services
 			if (users.Any())
 			{
 				var user = users.FirstOrDefault();
-				SesionData.userId = user.Id;
+				SesionData.UserId = user.Id;
 				isRegistered = true;
 			}
 
 			return isRegistered;
+		}
+
+		public async Task SendEmailAsync()
+		{
+			try
+			{
+				UserDialogs.Instance.ShowLoading("Enviando correo...");
+				
+				var user = await GetUserAsync(SesionData.UserId);
+
+				var result = await emailService.SendEmailAsync(user.Email, user.Name, user.Password);
+				
+				var status = result.StatusCode;
+
+				if (result.StatusCode == System.Net.HttpStatusCode.OK)
+				{
+					UserDialogs.Instance.HideLoading();
+					await UserDialogs.Instance.AlertAsync("Correo enviado correctamente, compruebe su bandeja de entra y spam", "INFO", "OK");
+				}
+			}
+			catch (System.Exception ex)
+			{
+				await UserDialogs.Instance.AlertAsync(ex.StackTrace, "ERROR", "OK");
+			}
 		}
 
 		/// <summary>
@@ -150,8 +180,8 @@ namespace ProyectoXamarin.Services
 				await userRepository.UpdateSesionDataUser(user);
 
 				Preferences.Remove(SesionData.SessionKey);
-				
-				SecureStorage.Remove(SesionData.Email);
+
+				RemoveSessionDataAsync();
 				
 				Application.Current.MainPage = new NavigationPage(new LoginPage());
 			}
@@ -195,21 +225,45 @@ namespace ProyectoXamarin.Services
 		/// <returns>A Task<see cref="Task{bool}" /> representing the asynchronous operation.</returns>
 		public async Task<bool> ExistAsync(User user)
 		{
-			return await userRepository.CompareUserAsync(user);
+			var users = await GetAllUsersAsync();
+			var isExist = users.Any(u => u.Email == user.Email);
+			var passIsOk = users.Any(u => u.Email == user.Email & u.Password == user.Password);
+
+			if (isExist & !passIsOk)
+			{
+				var result = await UserDialogs.Instance.ConfirmAsync("El password no coincide, ¿Quíere recibir un email con su password", "Error", "OK", "CANCELAR");
+				
+				if(result)
+					await SendEmailAsync();
+			}
+
+			bool isOk = isExist && passIsOk;
+
+			return isOk;
 		}
 
 		/// <summary>
 		/// Update as an asynchronous operation.
 		/// </summary>
-		/// <param name="entity">The entity.</param>
+		/// <param name="user">The entity.</param>
 		/// <returns>A Task representing the asynchronous operation.</returns>
-		public async Task UpdateAsync(User entity)
+		public async Task UpdateAsync(User user)
 		{
-			var status = await userRepository.UpdateItemAsync(entity);
+			var status = await userRepository.UpdateItemAsync(user);
 
 			status = status == 1 ? (int) StatusEnum.Updated : (int) StatusEnum.ErrorInProcess;
 
 			await utilities.GetStatus(status, nameof(EntityEnums.User));
+
+			Preferences.Remove(SesionData.SessionKey);
+
+			RemoveSessionDataAsync();
+
+			Preferences.Set(SesionData.SessionKey, DateTime.UtcNow);
+
+			await SetSessionDataAsync(user);
+
+			await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 		}
 
 		/// <summary>
@@ -229,6 +283,25 @@ namespace ProyectoXamarin.Services
 		public async Task<List<User>> GetAllUsersAsync()
 		{
 			return await userRepository.GetAllAsync();
+		}
+
+
+		public async Task SetSessionDataAsync(User user)
+		{
+			await SecureStorage.SetAsync(SesionData.Email, user.Email);
+			await SecureStorage.SetAsync(SesionData.Name, user.Name);
+			await SecureStorage.SetAsync(SesionData.Surnames, user.Surname);
+			await SecureStorage.SetAsync(SesionData.Password, user.Password);
+		}
+
+		public void RemoveSessionDataAsync()
+		{
+			SecureStorage.RemoveAll();
+		}
+
+		public async Task<User> GetUserByEmailAsync(string email)
+		{
+			return await userRepository.GetUserByEmailAsync(email);
 		}
 	}
 }

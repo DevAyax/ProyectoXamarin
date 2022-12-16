@@ -145,8 +145,8 @@ namespace ProyectoXamarin.Services
 
 			if (status == 1)
 			{
-				var user = await userService.GetUserAsync(SesionData.userId);
-				user.CarId = SesionData.carId;
+				var user = await userService.GetUserAsync(SesionData.UserId);
+				user.CarId = SesionData.CarId;
 				await userService.UpdateAsync(user);
 			}
 

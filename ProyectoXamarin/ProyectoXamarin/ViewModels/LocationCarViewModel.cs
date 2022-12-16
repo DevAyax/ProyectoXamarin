@@ -69,7 +69,7 @@ namespace ProyectoXamarin.ViewModels
 			{
 				UserDialogs.Instance.ShowLoading();
 
-				if (SesionData.userId == 0)
+				if (SesionData.UserId == 0)
 					await userService.AutoLoginAsync();
 
 				NewLocation = await locationService.GetCurrentLocation(NewLocation);
@@ -100,7 +100,7 @@ namespace ProyectoXamarin.ViewModels
 		/// <returns>A Task representing the asynchronous operation.</returns>
 		public async Task GetInfoAsync()
 		{
-			var info = locationService.GetPlaceMarkInfo(SesionData.placemark);
+			var info = locationService.GetPlaceMarkInfo(SesionData.Placemark);
 
 			await UserDialogs.Instance.ConfirmAsync(info, "Info Location", "OK");
 		}
@@ -148,7 +148,7 @@ namespace ProyectoXamarin.ViewModels
 
 				UserDialogs.Instance.ShowLoading();
 				
-				await locationService.NavigateToLocationCar(SesionData.placemark);
+				await locationService.NavigateToLocationCar(SesionData.Placemark);
 
 				UserDialogs.Instance.HideLoading();
 

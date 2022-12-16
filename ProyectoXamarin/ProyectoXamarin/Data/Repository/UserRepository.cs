@@ -114,7 +114,7 @@ namespace ProyectoXamarin.Data.Repository
 		public async Task UpdateSesionDataUser(User user)
 		{
 			var newUser = await App.DataBase.connect.Table<User>().FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
-			SesionData.userId = newUser.Id;
+			SesionData.UserId = newUser.Id;
 		}
 
 		/// <summary>

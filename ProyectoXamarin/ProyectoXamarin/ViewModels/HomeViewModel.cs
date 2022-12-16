@@ -110,7 +110,7 @@ namespace ProyectoXamarin.ViewModels
 		{
 			UserDialogs.Instance.ShowLoading();
 			
-			if (SesionData.userId == 0)
+			if (SesionData.UserId == 0)
 				await userService.AutoLoginAsync();
 
 			await GetAllInfo();
@@ -131,7 +131,7 @@ namespace ProyectoXamarin.ViewModels
 			{
 				UserDialogs.Instance.HideLoading();
 				IsBusy = true;
-				var user = await userService.GetUserAsync(SesionData.userId);
+				var user = await userService.GetUserAsync(SesionData.UserId);
 
 				if (user.CarId != null)
 				{
@@ -140,12 +140,12 @@ namespace ProyectoXamarin.ViewModels
 					var model = await carService.GetModelAsync((int) car.ModelId);
 					var _Kilometer = await kilometerService.GetKilometerAsync(car.Id);
 
-					SesionData.carId = car != null ? car.Id : 0;
-					SesionData.kilometers = _Kilometer != null ? (int) _Kilometer.Km : 0;
+					SesionData.CarId = car != null ? car.Id : 0;
+					SesionData.Kilometers = _Kilometer != null ? (int) _Kilometer.Km : 0;
 					Uri url = new Uri($"https://cdn.imagin.studio/getImage?&customer=esbernabeu&make={brand.Name}&modelFamily={model.Name}&modelRange={model.Name}&modelVariant=ca&modelYear=2021&powerTrain=fossil&transmission=0&bodySize=2&trim=0&paintId=imagin-yellow&angle=22");
 
 					Image = url;
-					Kilometers = $"{SesionData.kilometers} Km";
+					Kilometers = $"{SesionData.Kilometers} Km";
 					InfoCar = $"({brand.Name}) ({model.Name})";
 					InfoDate = $"Útima actualización: {_Kilometer.DateCreation}";
 
@@ -178,7 +178,7 @@ namespace ProyectoXamarin.ViewModels
 			{
 				IsBusy = true;
 
-				var car = await carService.GetCarByUserAsync(SesionData.userId);
+				var car = await carService.GetCarByUserAsync(SesionData.UserId);
 
 				if (car != null)
 				{
@@ -186,23 +186,23 @@ namespace ProyectoXamarin.ViewModels
 					promptConfig.InputType = InputType.Number;
 					promptConfig.IsCancellable = true;
 					promptConfig.Message = "Actualiza kilometros";
-					promptConfig.Placeholder = $"{SesionData.kilometers}";
+					promptConfig.Placeholder = $"{SesionData.Kilometers}";
 					var result = await UserDialogs.Instance.PromptAsync(promptConfig);
 
 					if (result.Ok)
 					{
-						SesionData.kilometers = int.Parse(result.Text);
+						SesionData.Kilometers = int.Parse(result.Text);
 
 						await kilometerService.SaveAsync(new Kilometer
 						{
-							Km = SesionData.kilometers,
+							Km = SesionData.Kilometers,
 							CarId = car.Id,
 							DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")
 						});
 
-						Kilometers = $"{SesionData.kilometers} Km";
+						Kilometers = $"{SesionData.Kilometers} Km";
 
-						car.Km = SesionData.kilometers;
+						car.Km = SesionData.Kilometers;
 
 						await carService.UpdateAsync(car);
 					}

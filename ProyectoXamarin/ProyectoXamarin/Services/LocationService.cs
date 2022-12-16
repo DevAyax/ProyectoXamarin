@@ -74,7 +74,7 @@ namespace ProyectoXamarin.Services
 		/// <returns>A Task<see cref="Task{ProyectoXamarin.Models.Maps.LocationCar}"/> representing the asynchronous operation.</returns>
 		public async Task<LocationCar> GetLocationDataAsync()
 		{
-			return await locationsRepository.GetLastLocationsByUser(SesionData.userId);
+			return await locationsRepository.GetLastLocationsByUser(SesionData.UserId);
 		}
 
 		/// <summary>
@@ -123,11 +123,11 @@ namespace ProyectoXamarin.Services
 					NewLocation.Locality = placemark.Locality;
 					NewLocation.AdminArea = placemark.AdminArea;
 					NewLocation.CountryName = placemark.CountryName;
-					NewLocation.UserId = SesionData.userId;
+					NewLocation.UserId = SesionData.UserId;
 
 					var pM = GetPlaceMarkInfo(placemark);
 
-					SesionData.placemark = placemark;
+					SesionData.Placemark = placemark;
 				}
 			}
 			UserDialogs.Instance.HideLoading();
