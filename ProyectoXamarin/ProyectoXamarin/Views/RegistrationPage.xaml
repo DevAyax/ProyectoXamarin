@@ -62,7 +62,7 @@
 						<Entry
                             Margin="5,0,5,0"
                             HorizontalOptions="FillAndExpand"
-                            Placeholder="Nombre"
+                            Placeholder="Name"
                             Style="{StaticResource EntryGradient}"
 							Text="{Binding NewUser.Name}"></Entry>
 					</Frame>
@@ -76,7 +76,7 @@
 						<Entry
                             Margin="5,0,5,1"
                             HorizontalOptions="FillAndExpand"
-                            Placeholder="Apellidos"
+                            Placeholder="Surnames"
                             Style="{StaticResource EntryGradient}"
 							Text="{Binding NewUser.Surname}"></Entry>
 					</Frame>

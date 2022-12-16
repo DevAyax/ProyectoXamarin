@@ -141,7 +141,7 @@ namespace ProyectoXamarin.ViewModels
 		public async Task OnAppearingAsync()
 		{
 			UserDialogs.Instance.ShowLoading();
-			if (SesionData.userId == 0)
+			if (SesionData.UserId == 0)
 				await userService.AutoLoginAsync();
 
 			var brands = await carService.GetAllBrandsAsync(new ObservableCollection<Brand>());
@@ -162,7 +162,7 @@ namespace ProyectoXamarin.ViewModels
 		/// </summary>
 		public async Task FillFields()
 		{
-			var car = await carService.GetCarByUserAsync(SesionData.userId);
+			var car = await carService.GetCarByUserAsync(SesionData.UserId);
 			if (car != null)
 			{
 				var brand = await carService.GetBrandAsync((int) car.BrandId);
@@ -280,7 +280,7 @@ namespace ProyectoXamarin.ViewModels
 				if (brandSelected != null & modelSelected != null)
 				{
 					NewCar.BrandId = brandSelected.Id;
-					NewCar.UserId = SesionData.userId;
+					NewCar.UserId = SesionData.UserId;
 					NewCar.ModelId = modelSelected.Id;
 					NewCar.Km = Kilometers;
 					NewCar.Combustible = CombustibleSelected;

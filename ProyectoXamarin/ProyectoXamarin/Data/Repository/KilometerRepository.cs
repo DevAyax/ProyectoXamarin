@@ -103,7 +103,7 @@ namespace ProyectoXamarin.Data.Repository
 			if (status == 1)
 			{
 				var _kilometer = await App.DataBase.connect.Table<Kilometer>().Where(k => k.Km == kilometer.Km).FirstOrDefaultAsync();
-				SesionData.kilometers = (int) _kilometer.Km;
+				SesionData.Kilometers = (int) _kilometer.Km;
 			}
 		}
 	}

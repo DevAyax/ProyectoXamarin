@@ -24,7 +24,7 @@
 			</Grid.RowDefinitions>
 			<Image 
 				Grid.Row="0" 
-				Margin="-10,30,0,-30" 
+				Margin="-10,10,0,-30" 
 				Source="Yellow.png" 
 				Aspect="AspectFit" 
 				HeightRequest="180" 
@@ -170,24 +170,39 @@
 							WidthRequest="30"
                             Aspect="AspectFit"/>
 					</StackLayout>
-					<Label 
-						Grid.Row="7" 
-						Text="Forget Password" 
-						FontAttributes="Bold" 
-						HorizontalOptions="CenterAndExpand">
-						<Label.GestureRecognizers>
-							<TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
-						</Label.GestureRecognizers>
-					</Label>
-					<Label 
-						Grid.Row="8" 
+					<StackLayout 
+						Orientation="Horizontal"
+						Margin="0,20,0,0"
+						Grid.Row="7">
+						<Label 
 						Margin="0,-10,0,0" 
-						Text="Don't have an account? Sign up here" 
-						HorizontalOptions="CenterAndExpand">
-						<Label.GestureRecognizers>
-							<TapGestureRecognizer Command="{Binding GotoRegistUserCommand}"/>
-						</Label.GestureRecognizers>
-					</Label>
+						Text="Don't have an account?" 
+						HorizontalOptions="CenterAndExpand"/>
+						<Frame
+							Margin="0,-10,10,0"
+							Padding="1"
+							Style="{StaticResource FrameGradient}"
+							CornerRadius="10"
+							HeightRequest="20"
+							BorderColor="Black"
+							HorizontalOptions="Center"
+							VerticalOptions="Center">
+							<Frame.GestureRecognizers>
+								<TapGestureRecognizer Command="{Binding GotoRegistUserCommand}"/>
+							</Frame.GestureRecognizers>
+							<Label 
+								Margin="2,0,2,0" 
+								Text="Sign up here"
+								TextColor="Black"
+								FontAttributes="Bold"
+								HorizontalOptions="CenterAndExpand">
+								<Label.GestureRecognizers>
+									<TapGestureRecognizer Command="{Binding GotoRegistUserCommand}"/>
+								</Label.GestureRecognizers>
+							</Label>
+						</Frame>
+					</StackLayout>
+					
 				</Grid>
 			</Frame>
 		</Grid>

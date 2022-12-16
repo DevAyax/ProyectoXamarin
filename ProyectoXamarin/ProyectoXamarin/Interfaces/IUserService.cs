@@ -69,5 +69,12 @@ namespace ProyectoXamarin.Interfaces
 		/// </summary>
 		/// <returns>Task<see cref="Task" />.</returns>
 		Task AutoLoginAsync();
+
+		/// <summary>
+		/// Gets the user asynchronous.
+		/// </summary>
+		/// <param name="email">The identifier.</param>
+		/// <returns>Task<see cref="Task{ProyectoXamarin.Models.Users.User}"/>.</returns>
+		Task<User> GetUserByEmailAsync(string email);
 	}
 }
