@@ -21,7 +21,7 @@ namespace ProyectoXamarin.Models.Maps
 	/// Implements the <see cref="ProyectoXamarin.Models.BaseEntity" />
 	/// </summary>
 	/// <seealso cref="ProyectoXamarin.Models.BaseEntity" />
-	[Table("Locations")]
+	[Table("LocationCar")]
 	public class LocationCar : BaseEntity
 	{
 		/// <summary>

@@ -287,7 +287,8 @@ namespace ProyectoXamarin.ViewModels
 					NewCar.Doors = DoorsSelected;
 
 					await carService.SaveAsync(NewCar);
-					await kilometerService.SaveAsync(new Kilometer { CarId = NewCar.Id, DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"), Km = NewCar.Km });
+					var car = await carService.GetCarByUserAsync(SesionData.UserId);
+					await kilometerService.SaveAsync(new Kilometer { CarId = car.Id, DateCreation = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"), Km = NewCar.Km });
 				}
 				else
 				{

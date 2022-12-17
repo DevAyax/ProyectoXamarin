@@ -85,8 +85,9 @@ namespace ProyectoXamarin.Services
 			try
 			{
 				UserDialogs.Instance.ShowLoading("Enviando correo...");
-				
-				var user = await GetUserAsync(SesionData.UserId);
+
+				var email = await SecureStorage.GetAsync(SesionData.Email);
+				var user = await userRepository.GetUserByEmailAsync(email);
 
 				var result = await emailService.SendEmailAsync(user.Email, user.Name, user.Password);
 				
@@ -195,6 +196,7 @@ namespace ProyectoXamarin.Services
 		public async Task SaveAsync(User user)
 		{
 			var exist = await ExistAsync(user);
+			
 			bool fieldsOk = (!string.IsNullOrEmpty(user.Email) & !string.IsNullOrEmpty(user.Password)
 				& !string.IsNullOrEmpty(user.Name) & !string.IsNullOrEmpty(user.Surname));
 
@@ -203,6 +205,11 @@ namespace ProyectoXamarin.Services
 				var status = await userRepository.SaveItemAsync(user);
 
 				status = status == 1 ? (int) StatusEnum.Registered : (int) StatusEnum.ErrorInProcess;
+				
+				var userRegister = await userRepository.GetUserByEmailAsync(user.Email);
+				SesionData.UserId = userRegister.Id;
+
+				await SecureStorage.SetAsync(SesionData.Email, user.Email);
 
 				await utilities.GetStatus(status, nameof(EntityEnums.User));
 
@@ -262,8 +269,6 @@ namespace ProyectoXamarin.Services
 			Preferences.Set(SesionData.SessionKey, DateTime.UtcNow);
 
 			await SetSessionDataAsync(user);
-
-			await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 		}
 
 		/// <summary>

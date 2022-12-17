@@ -73,7 +73,7 @@ namespace ProyectoXamarin.Services
 			RestRequest request = new RestRequest();
 			request.AddParameter("domain", Domain, ParameterType.UrlSegment);
 			request.Resource = "{domain}/messages";
-			request.AddParameter("from", $"Mailgun Sandbox {SenderAddress}");
+			request.AddParameter("from", "FindCar, <muchabasura213@gmail.com>");
 			request.AddParameter("to", $"{name} <{toAddress}>");
 			request.AddParameter("subject", $"Hello {name}");
 			request.AddParameter("text", $"Hola {name}, Hemos recibido una solicitud de restablecimiento de contraseña para la cuenta asociada a esta dirección de correo electrónico" +

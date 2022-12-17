@@ -12,8 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
+using ProyectoXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Forms.Xaml.Diagnostics;
 
 namespace ProyectoXamarin.Views
 {
@@ -30,8 +32,16 @@ namespace ProyectoXamarin.Views
 		/// </summary>
 		public LoginPage()
 		{
-
 			InitializeComponent();
+		}
+
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+			if(BindingContext is LoginViewModel loginViewModel)
+			{
+				await loginViewModel.OnAppearing();
+			}
 		}
 	}
 }

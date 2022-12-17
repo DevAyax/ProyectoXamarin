@@ -52,7 +52,25 @@ namespace ProyectoXamarin.ViewModels
 
 			RegisterCommand = new Command(async () => await RegisterUser());
 
-			GotoRegistUserCommand = new Command(async () => await (Application.Current.MainPage as NavigationPage).PushAsync(new RegistrationPage()));
+			GotoRegistUserCommand = new Command(async () => await GotoREgistrationPage());
+		}
+
+		public async Task OnAppearing()
+		{
+			UserDialogs.Instance.ShowLoading();
+
+			if (SesionData.UserId != 0)
+			{
+				var user = await userService.GetUserAsync(SesionData.UserId);
+				NewUser = user;
+			}
+
+			UserDialogs.Instance.HideLoading();
+		}
+
+		public async Task GotoREgistrationPage()
+		{
+			await (Application.Current.MainPage as NavigationPage).PushAsync(new RegistrationPage());
 		}
 
 		/// <summary>
@@ -76,8 +94,8 @@ namespace ProyectoXamarin.ViewModels
 			}
 			catch (Exception ex)
 			{
-				IsBusy = true;
-				throw;
+				IsBusy = false;
+				await UserDialogs.Instance.AlertAsync($"{ex.Message}", "ERROR", "OK");
 			}
 			finally
 			{
@@ -92,6 +110,7 @@ namespace ProyectoXamarin.ViewModels
 		{
 			if (IsBusy)
 				return;
+
 			if (string.IsNullOrEmpty(NewUser.Email) | string.IsNullOrEmpty(NewUser.Password))
 			{
 				UserDialogs.Instance.Alert("Los campos deben estar rellenos", "ERROR", "Ok");
@@ -112,8 +131,8 @@ namespace ProyectoXamarin.ViewModels
 			}
 			catch (Exception ex)
 			{
-				IsBusy = true;
-				throw;
+				IsBusy = false;
+				await UserDialogs.Instance.AlertAsync($"{ex.Message}", "ERROR", "OK");
 			}
 			finally
 			{
