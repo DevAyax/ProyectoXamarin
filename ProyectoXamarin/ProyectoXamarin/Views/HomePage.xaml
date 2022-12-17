@@ -73,7 +73,7 @@
 							TextColor="Black"
 							FontAttributes="Bold" />
 					</Frame>
-					<Frame
+					<!--<Frame
 						Grid.Row="0"
 						Grid.Column="3"
 						Margin="7"
@@ -91,7 +91,7 @@
 							Padding="5"
 							Grid.Column="3"
 							Source="bell"/>
-					</Frame>
+					</Frame>-->
 					
 				</Grid>
 			</StackLayout>

@@ -63,6 +63,8 @@ namespace ProyectoXamarin.ViewModels
 				await userService.AutoLoginAsync();
 			
 			SetParamsToProfile();
+
+			UserDialogs.Instance.HideLoading();
 		}
 
 		public async void SetParamsToProfile()
@@ -95,6 +97,7 @@ namespace ProyectoXamarin.ViewModels
 				UserDialogs.Instance.ShowLoading();
 
 				await userService.UpdateAsync(_User);
+				Application.Current.MainPage = new AppShell();
 
 				UserDialogs.Instance.HideLoading();
 

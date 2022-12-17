@@ -125,13 +125,13 @@
 						Style="{StaticResource Key=botones}" 
 						Grid.Row="5" 
 						Text="Modify"
-						Command="{Binding LogoutCommand}"/>
+						Command="{Binding ModifyUserCommand}"/>
 					<Button 
 						BorderWidth="2" 
 						Style="{StaticResource Key=botones}" 
 						Grid.Row="6" 
 						Text="Logout"
-						Command="{Binding ModifyUserCommand}"/>
+						Command="{Binding LogoutCommand}"/>
 				</Grid>
 			</Frame>
 		</Grid>

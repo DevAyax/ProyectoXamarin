@@ -19,6 +19,7 @@ using ProyectoXamarin.Interfaces;
 using ProyectoXamarin.Models.Brands;
 using ProyectoXamarin.Models.Cars;
 using ProyectoXamarin.Models.Kilometers;
+using ProyectoXamarin.Models.Maps;
 using ProyectoXamarin.Models.ModelCar;
 using ProyectoXamarin.Models.Users;
 using SQLite;
@@ -70,6 +71,7 @@ namespace ProyectoXamarin.Data
 			connect.CreateTableAsync<Brand>().Wait();
 			connect.CreateTableAsync<Model>().Wait();
 			connect.CreateTableAsync<Kilometer>().Wait();
+			connect.CreateTableAsync<LocationCar>().Wait();
 		}
 	}
 }

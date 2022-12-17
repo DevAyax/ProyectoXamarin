@@ -148,9 +148,6 @@ namespace ProyectoXamarin.ViewModels
 					Kilometers = $"{SesionData.Kilometers} Km";
 					InfoCar = $"({brand.Name}) ({model.Name})";
 					InfoDate = $"Útima actualización: {_Kilometer.DateCreation}";
-
-					if (car.Km <= 0)
-						await GetPromptAsync();
 				}
 
 				IsBusy = false;
@@ -206,6 +203,10 @@ namespace ProyectoXamarin.ViewModels
 
 						await carService.UpdateAsync(car);
 					}
+				}
+				else
+				{
+					UserDialogs.Instance.Alert("Debes agregar un coche para poder añadir kilometors", "INFO", "OK");
 				}
 				
 				IsBusy = false;
