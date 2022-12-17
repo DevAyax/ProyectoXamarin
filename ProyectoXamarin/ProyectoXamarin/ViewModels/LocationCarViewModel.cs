@@ -13,6 +13,7 @@
 // ***********************************************************************
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using ProyectoXamarin.Interfaces;
@@ -147,8 +148,11 @@ namespace ProyectoXamarin.ViewModels
 				IsBusy = true;
 
 				UserDialogs.Instance.ShowLoading();
-				
-				await locationService.NavigateToLocationCar(SesionData.Placemark);
+				var locations = await locationService.GetAllLocationsAsync();
+				var location = locations.OrderByDescending(l => l.Id).FirstOrDefault();
+				var placemark = locationService.GetPlaceMarkFromBBDD(location);
+
+				await locationService.NavigateToLocationCar(placemark);
 
 				UserDialogs.Instance.HideLoading();
 

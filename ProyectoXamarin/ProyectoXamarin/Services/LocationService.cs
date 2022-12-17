@@ -4,7 +4,7 @@
 // Created          : 12-10-2022
 //
 // Last Modified By : Ayax
-// Last Modified On : 12-12-2022
+// Last Modified On : 12-17-2022
 // ***********************************************************************
 // <copyright file="LocationService.cs" company="ProyectoXamarin">
 //     Copyright (c) . All rights reserved.
@@ -13,6 +13,7 @@
 // ***********************************************************************
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ namespace ProyectoXamarin.Services
 		private readonly IUtilities utilities;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="LocationService"/> class.
+		/// Initializes a new instance of the <see cref="LocationService" /> class.
 		/// </summary>
 		public LocationService()
 		{
@@ -71,10 +72,19 @@ namespace ProyectoXamarin.Services
 		/// <summary>
 		/// Get location data as an asynchronous operation.
 		/// </summary>
-		/// <returns>A Task<see cref="Task{ProyectoXamarin.Models.Maps.LocationCar}"/> representing the asynchronous operation.</returns>
+		/// <returns>A Task<see cref="Task{ProyectoXamarin.Models.Maps.LocationCar}" /> representing the asynchronous operation.</returns>
 		public async Task<LocationCar> GetLocationDataAsync()
 		{
 			return await locationsRepository.GetLastLocationsByUser(SesionData.UserId);
+		}
+
+		/// <summary>
+		/// Get all locations as an asynchronous operation.
+		/// </summary>
+		/// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
+		public async Task<List<LocationCar>> GetAllLocationsAsync()
+		{
+			return await locationsRepository.GetAllAsync();
 		}
 
 		/// <summary>
@@ -152,6 +162,23 @@ namespace ProyectoXamarin.Services
 					$"SubLocality:     {placemark.SubLocality}\n" +
 					$"SubThoroughfare: {placemark.SubThoroughfare}\n" +
 					$"Thoroughfare:    {placemark.Thoroughfare}\n";
+		}
+
+		/// <summary>
+		/// Gets the place mark information.
+		/// </summary>
+		/// <param name="placemark">The placemark.</param>
+		/// <returns>System.String.</returns>
+		public Placemark GetPlaceMarkFromBBDD(LocationCar location)
+		{
+			var placemark = new Placemark 
+			{
+				CountryName = location.CountryName,					   
+				AdminArea = location.AdminArea,
+				Locality = location.Locality,
+				Location = new Location { Longitude = (double)location.Longitude, Latitude = (double)location.Latitude},
+			};
+			return placemark;
 		}
 
 		/// <summary>
