@@ -86,7 +86,7 @@ namespace ProyectoXamarin.Data.Repository
 		/// <returns>The Task<see cref="Task{ProyectoXamarin.Models.Maps.LocationCar}"/>.</returns>
 		public async Task<LocationCar> GetLastLocationsByUser(int id)
 		{
-			return await App.DataBase.connect.Table<LocationCar>().FirstOrDefaultAsync();
+			return await App.DataBase.connect.Table<LocationCar>().FirstOrDefaultAsync(l => l.UserId == id);
 		}
 
 		/// <summary>

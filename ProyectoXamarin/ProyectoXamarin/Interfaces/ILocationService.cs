@@ -4,7 +4,7 @@
 // Created          : 12-10-2022
 //
 // Last Modified By : Ayax
-// Last Modified On : 12-11-2022
+// Last Modified On : 12-17-2022
 // ***********************************************************************
 // <copyright file="ILocationService.cs" company="ProyectoXamarin">
 //     Copyright (c) . All rights reserved.
@@ -14,6 +14,7 @@
 
 namespace ProyectoXamarin.Interfaces
 {
+	using System.Collections.Generic;
 	using System.Threading.Tasks;
 	using ProyectoXamarin.Models.Maps;
 	using Xamarin.Essentials;
@@ -34,15 +35,15 @@ namespace ProyectoXamarin.Interfaces
 
 		/// <summary>
 		/// Gets the location data asynchronous.
-		/// </summary>									  
-		/// <returns>The Task<see cref="Task{ProyectoXamarin.Models.Maps.LocationCar}"/>.</returns>
+		/// </summary>
+		/// <returns>The Task<see cref="Task{ProyectoXamarin.Models.Maps.LocationCar}" />.</returns>
 		Task<LocationCar> GetLocationDataAsync();
 
 		/// <summary>
 		/// Gets the current location.
 		/// </summary>
 		/// <param name="NewLocation">Creates new location.</param>
-		/// <returns>The Task<see cref="Task{ProyectoXamarin.Models.Maps.LocationCar}"/>.</returns>
+		/// <returns>The Task<see cref="Task{ProyectoXamarin.Models.Maps.LocationCar}" />.</returns>
 		Task<LocationCar> GetCurrentLocation(LocationCar NewLocation);
 
 		/// <summary>
@@ -58,5 +59,19 @@ namespace ProyectoXamarin.Interfaces
 		/// <param name="placemark">The placemark.</param>
 		/// <returns>System.String.</returns>
 		string GetPlaceMarkInfo(Placemark placemark);
+
+		/// <summary>
+		/// Gets all locations asynchronous.
+		/// </summary>
+		/// <returns>Task&lt;List&lt;LocationCar&gt;&gt;.</returns>
+		Task<List<LocationCar>> GetAllLocationsAsync();
+
+
+		/// <summary>
+		/// Gets the place mark from BBDD.
+		/// </summary>
+		/// <param name="location">The location.</param>
+		/// <returns>Placemark.</returns>
+		Placemark GetPlaceMarkFromBBDD(LocationCar location);
 	}
 }
