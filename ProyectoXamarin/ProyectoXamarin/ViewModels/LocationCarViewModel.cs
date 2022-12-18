@@ -127,8 +127,8 @@ namespace ProyectoXamarin.ViewModels
 			}
 			catch (Exception ex)
 			{
-				IsBusy = true;
-				throw;
+				IsBusy = false;
+				await UserDialogs.Instance.AlertAsync(ex.StackTrace, "ERROR", "OK");
 			}
 			finally
 			{
@@ -160,8 +160,8 @@ namespace ProyectoXamarin.ViewModels
 			}
 			catch (Exception ex)
 			{
-				IsBusy = true;
-				throw;
+				IsBusy = false;
+				await UserDialogs.Instance.AlertAsync(ex.StackTrace, "ERROR", "OK");
 			}
 			finally
 			{

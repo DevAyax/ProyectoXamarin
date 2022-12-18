@@ -1,21 +1,40 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿// ***********************************************************************
+// Assembly         : ProyectoXamarin
+// Author           : Ayax
+// Created          : 12-17-2022
+//
+// Last Modified By : Ayax
+// Last Modified On : 12-18-2022
+// ***********************************************************************
+// <copyright file="ProfileViewModel.cs" company="ProyectoXamarin">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+using System;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using ProyectoXamarin.Interfaces;
-using ProyectoXamarin.Models.Brands;
 using ProyectoXamarin.Models.Users;
-using ProyectoXamarin.Services;
 using ProyectoXamarin.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ProyectoXamarin.ViewModels
 {
+	/// <summary>
+	/// Class ProfileViewModel.
+	/// Implements the <see cref="ProyectoXamarin.ViewModels.BaseViewModel" />
+	/// </summary>
+	/// <seealso cref="ProyectoXamarin.ViewModels.BaseViewModel" />
 	public class ProfileViewModel : BaseViewModel
 	{
-
+		/// <summary>
+		/// The user
+		/// </summary>
 		private User user;
+
 		/// <summary>
 		/// The new name
 		/// </summary>
@@ -41,6 +60,9 @@ namespace ProyectoXamarin.ViewModels
 		/// </summary>
 		private readonly IUserService userService;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ProfileViewModel"/> class.
+		/// </summary>
 		public ProfileViewModel()
 		{
 			this.userService = DependencyService.Get<IUserService>();
@@ -61,12 +83,15 @@ namespace ProyectoXamarin.ViewModels
 			UserDialogs.Instance.ShowLoading();
 			if (SesionData.UserId == 0)
 				await userService.AutoLoginAsync();
-			
+
 			SetParamsToProfile();
 
 			UserDialogs.Instance.HideLoading();
 		}
 
+		/// <summary>
+		/// Sets the parameters to profile.
+		/// </summary>
 		public async void SetParamsToProfile()
 		{
 			var email = await SecureStorage.GetAsync(SesionData.Email);
@@ -89,10 +114,14 @@ namespace ProyectoXamarin.ViewModels
 			{
 				IsBusy = true;
 
+				var user = await userService.GetUserByEmailAsync(Email);
+
 				_User.Name = Name;
 				_User.Email = Email;
 				_User.Surname = Surnames;
 				_User.Password = Password;
+				_User.Id = user.Id;
+				_User.CarId = user.CarId;
 
 				UserDialogs.Instance.ShowLoading();
 
@@ -105,8 +134,8 @@ namespace ProyectoXamarin.ViewModels
 			}
 			catch (Exception ex)
 			{
-				IsBusy = true;
-				throw;
+				IsBusy = false;
+				await UserDialogs.Instance.AlertAsync(ex.StackTrace, "ERROR", "OK");
 			}
 			finally
 			{
@@ -136,8 +165,8 @@ namespace ProyectoXamarin.ViewModels
 			}
 			catch (Exception ex)
 			{
-				IsBusy = true;
-				throw;
+				IsBusy = false;
+				await UserDialogs.Instance.AlertAsync(ex.StackTrace, "ERROR", "OK");
 			}
 			finally
 			{
@@ -187,7 +216,7 @@ namespace ProyectoXamarin.ViewModels
 
 		/// <summary>
 		/// Gets or sets the Surnames.
-		/// </summary>			
+		/// </summary>
 		/// <value>The surnames.</value>
 		public string Surnames
 		{
@@ -202,7 +231,7 @@ namespace ProyectoXamarin.ViewModels
 		/// <summary>
 		/// Gets or sets the email.
 		/// </summary>
-		/// /// <value>The Email.</value>
+		/// <value>The Email.</value>
 		public string Email
 		{
 			get => email;

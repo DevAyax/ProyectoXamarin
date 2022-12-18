@@ -14,7 +14,7 @@
 			<Grid 
 				RowDefinitions="40,40,40,40,40" 
 				ColumnDefinitions="60,auto,60" 
-				Margin="118,0,0,0">
+				Margin="116,60,0,0">
 				<Button
 					Grid.Row="0"
 					Grid.ColumnSpan="2"
@@ -60,27 +60,22 @@
 					Grid.ColumnSpan="2" 
 					Margin="0,-30,0,0">
 					<Grid RowDefinitions="40,40"
-						  ColumnDefinitions="60,auto,60">
+						  ColumnDefinitions="170">
 						<Button 
 							Grid.Row="0"
-							Grid.ColumnSpan="3"
 							Margin="-10,0,0,0"
 							Text="Info"
 							Style="{x:StaticResource botones}"
 							Command="{Binding InfoCommand}"/>
 						<Button
 							Grid.Row="1"
-							Grid.ColumnSpan="3"
 							Margin="-10,0,0,0"
 							Text="Como llegar"
 							Style="{x:StaticResource botones}"
 							Command="{Binding HowToGetCommand}"/>
 					</Grid>
-					
 				</StackLayout>
 			</Grid>
-			
-			
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

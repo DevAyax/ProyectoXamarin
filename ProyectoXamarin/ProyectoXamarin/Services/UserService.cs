@@ -101,8 +101,10 @@ namespace ProyectoXamarin.Services
 			}
 			catch (System.Exception ex)
 			{
+				UserDialogs.Instance.HideLoading();
 				await UserDialogs.Instance.AlertAsync(ex.StackTrace, "ERROR", "OK");
 			}
+			UserDialogs.Instance.HideLoading();
 		}
 
 		/// <summary>
